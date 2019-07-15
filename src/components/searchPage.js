@@ -1,4 +1,5 @@
 import React from 'react';
+import { SpotifyServiceClient } from '../services/spotify.client.service';
 
 export default class searchPage extends React.Component {
     constructor() {
@@ -14,10 +15,13 @@ export default class searchPage extends React.Component {
             keyword: event.target.value
         })
 
-    searchMusic = () => 
-        fetch('')
-            .then(response => response.json())
-            .then(this.renderMusics)
+    searchMusic = () => {
+        SpotifyServiceClient.getInstance().getAccessToken().then(
+            token => {
+                console.log(token);
+            }
+        );
+    }
 
     renderMusics = (search) =>
         this.setState({
