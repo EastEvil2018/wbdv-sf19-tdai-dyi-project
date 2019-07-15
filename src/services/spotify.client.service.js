@@ -15,15 +15,13 @@ export class SpotifyServiceClient {
     getAccessToken() {
         const client_id = "d64551f826e14f608c5e9a106c912991";
         const client_secret = "5cd0f786c52542a6a2c29cc8e8c5ccf8";
-        const endpoint = "https://accounts.spotify.com/api/token";
+        const endpoint = "https://wbdv-sf19-project-java-server.herokuapp.com/api/token/" + client_id;
         return fetch(endpoint, {
             method: "POST",
-            body: {
-                "grant_type": "client_credentials "
-            },
-            headers : {
-                "Authorization": "Basic " + client_id + ":" + client_secret
-            }
+			body: client_secret,
+			headers: {
+				'content-type': 'application/json'
+			}
         }).then(
             response => {
                 console.log(response);
