@@ -1,14 +1,19 @@
 import React from 'react';
 import { SpotifyServiceClient } from '../services/SpotifyService';
+import { Modal, Button } from 'react-bootstrap';
 
+//var Modal = require('react-bootstrap-modal')
 export default class searchPage extends React.Component {
     constructor() {
         super();
         this.state = {
             keyword: '',
             type: 'track',
-            musics: []
+            musics: [],
+            open: false,
+            selectedMusic: null
         }
+        this.toggle = this.toggle.bind(this);
     }
 
     keywordChanged = event =>
@@ -37,7 +42,7 @@ export default class searchPage extends React.Component {
         )
     }
 
-    searchMusicDetails(id) {
+    openModal(id) {
         console.log(id);
         SpotifyServiceClient.getInstance().getAccessToken().then(
             token => {
@@ -45,14 +50,35 @@ export default class searchPage extends React.Component {
                 const accessToken = token['access_token'];
                 SpotifyServiceClient.getInstance().searchMusicDetails(id, accessToken).then(
                     response => {
-                        console.log(response);
+                        console.log("MUSIC ITEM", response)
+                        this.state.selectedMusic = response;
+                        this.setState({selectedMusic: response});
+                        console.log(this.state)
                     }
                 );
         });
+        this.setState({ open: true })
+        
     }
 
+    toggle() {
+        this.setState({modal: true});
+    }
 
+    closeModal = () => this.setState({ open: false })
+
+    openModal1 = () => this.setState({ open: true })
+
+    getArtistsListString(artists) {
+        let artistListString = '';
+        artists.map(artist => {
+            artistListString += artist.name + ',';
+        })
+        artistListString = artistListString.substring(0, artistListString.length - 1);
+        return artistListString;
+    }
     render() {
+
         return(
             <div>
                 <h1>Search Musics</h1>
@@ -75,8 +101,52 @@ export default class searchPage extends React.Component {
                         (music) =>
                             <li key={music.id} 
                                 className="list-group-item"
-                                onClick={event => this.searchMusicDetails(music.id)}>
-                                {music.name}
+                                >
+                                    {music.name}
+                                    {/* onClick={event => this.searchMusicDetails(music.id)} */}
+                                    {/* Modal */}
+                                    <Button variant="primary" onClick={() => this.openModal(music.id)}>
+                                        Launch demo modal
+                                    </Button>
+
+                                    <Modal 
+                                        show={this.state.open && this.state.selectedMusic !== null} 
+                                        onHide={this.closeModal}
+                                        aria-labelledby="contained-modal-title-vcenter"
+                                        centered
+                                    >
+                                        <Modal.Header closeButton>
+                                        <Modal.Title>{this.state.selectedMusic? this.state.selectedMusic.name: 'Music Name'}</Modal.Title>
+                                        </Modal.Header>
+                                        <Modal.Body>
+                                        <div className="card">
+                                            <ul className="list-group list-group-flush">
+                                                <img
+                                                    src={this.state.selectedMusic? this.state.selectedMusic.album.images[1].url: null}/>
+                                                <li className="list-group-item">
+                                                    Album Name: {this.state.selectedMusic? this.state.selectedMusic.album.name: 'Album Name'}
+                                                </li>
+                                                <li className="list-group-item">
+                                                    Release Date: {this.state.selectedMusic? this.state.selectedMusic.album.release_date: 'Release Date'}
+                                                </li>
+                                                <li className="list-group-item">
+                                                    Duration(ms): {this.state.selectedMusic? this.state.selectedMusic.duration_ms: 'Duration'}
+                                                </li>
+                                                <li className="list-group-item">
+                                                    Artists: {this.state.selectedMusic? this.getArtistsListString(this.state.selectedMusic.artists): 'Artists'}
+                                                </li>
+                                                <li className="list-group-item">
+                                                    Link: <a href={this.state.selectedMusic? this.state.selectedMusic.external_urls.spotify: 'https://open.spotify.com/'}>Spotify Link</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        </Modal.Body>
+                                        <Modal.Footer>
+                                        <Button variant="secondary" onClick={this.closeModal}>
+                                            Close
+                                        </Button>
+                                        </Modal.Footer>
+                                    </Modal>
                             </li>
                     )
                 }
