@@ -118,7 +118,8 @@ export default class searchPage extends React.Component {
                                         <Modal.Header closeButton>
                                         <Modal.Title>{this.state.selectedMusic? this.state.selectedMusic.name: 'Music Name'}</Modal.Title>
                                         </Modal.Header>
-                                        <Modal.Body>
+                                        <Modal.Body 
+                                            style={{'max-height': 'calc(100vh - 210px)', 'overflow-y': 'auto'}}>
                                         <div className="card">
                                             <ul className="list-group list-group-flush">
                                                 <img
