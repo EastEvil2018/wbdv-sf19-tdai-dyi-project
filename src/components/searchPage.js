@@ -1,11 +1,12 @@
 import React from 'react';
-import { SpotifyServiceClient } from '../services/spotify.client.service';
+import { SpotifyServiceClient } from '../services/SpotifyService';
 
 export default class searchPage extends React.Component {
     constructor() {
         super();
         this.state = {
             keyword: '',
+            type: 'track',
             musics: []
         }
     }
@@ -19,14 +20,37 @@ export default class searchPage extends React.Component {
         SpotifyServiceClient.getInstance().getAccessToken().then(
             token => {
                 console.log(token);
+                const accessToken = token['access_token'];
+                SpotifyServiceClient.getInstance()
+                    .search(this.state.keyword,
+                            accessToken,
+                            this.state.type).then(
+                    results => {
+                        console.log(results);
+                        const items = results['tracks']['items'];                     
+                        this.setState({
+                            musics : items
+                        });
+                    }
+                );
             }
-        );
+        )
     }
 
-    renderMusics = (search) =>
-        this.setState({
-            musics: search
-        })
+    searchMusicDetails(id) {
+        console.log(id);
+        SpotifyServiceClient.getInstance().getAccessToken().then(
+            token => {
+                console.log(token);
+                const accessToken = token['access_token'];
+                SpotifyServiceClient.getInstance().searchMusicDetails(id, accessToken).then(
+                    response => {
+                        console.log(response);
+                    }
+                );
+        });
+    }
+
 
     render() {
         return(
@@ -48,9 +72,11 @@ export default class searchPage extends React.Component {
                 <ul className="list-group">
                 {
                     this.state.musics.map(
-                        (music, index) =>
-                            <li key={index} className="list-group-item">
-                                {music.title}
+                        (music) =>
+                            <li key={music.id} 
+                                className="list-group-item"
+                                onClick={event => this.searchMusicDetails(music.id)}>
+                                {music.name}
                             </li>
                     )
                 }
