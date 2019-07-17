@@ -1,6 +1,8 @@
 import React from 'react';
 import { SpotifyServiceClient } from '../services/SpotifyService';
 import { Modal, Button } from 'react-bootstrap';
+import { SpotifyType, SpotifyKey } from '../models/SearchType';
+import { WebUtils } from '../utils/WebUtils';
 
 //var Modal = require('react-bootstrap-modal')
 export default class searchPage extends React.Component {
@@ -8,7 +10,7 @@ export default class searchPage extends React.Component {
         super();
         this.state = {
             keyword: '',
-            type: 'track',
+            type: SpotifyType.ALBUM,
             musics: [],
             open: false,
             selectedMusic: null
@@ -16,12 +18,23 @@ export default class searchPage extends React.Component {
         this.toggle = this.toggle.bind(this);
     }
 
-    keywordChanged = event =>
+    keywordChanged = event => {
         this.setState({
             keyword: event.target.value
         })
+    }
+
+    searchTypeChanged = event => {
+        this.setState({
+            type: event.target.value
+        });
+    }
 
     searchMusic = () => {
+        if (WebUtils.isStringEmpty(this.state.keyword)) {
+            return;
+        }
+        console.log(this.state);
         SpotifyServiceClient.getInstance().getAccessToken().then(
             token => {
                 console.log(token);
@@ -32,7 +45,7 @@ export default class searchPage extends React.Component {
                             this.state.type).then(
                     results => {
                         console.log(results);
-                        const items = results['tracks']['items'];                     
+                        const items = results[SpotifyKey[this.state.type]]['items'];                     
                         this.setState({
                             musics : items
                         });
@@ -83,10 +96,19 @@ export default class searchPage extends React.Component {
             <div>
                 <h1>Search Musics</h1>
                 <div className="input-group">
+                    <select id="type"
+                            defaultValue="album"
+                            value={this.state.type}
+                            onChange={(event) => this.searchTypeChanged(event)}>
+                        <option value={SpotifyType.ALBUM}>Album</option>
+                        <option value={SpotifyType.TRACK}>Track</option>
+                        <option value={SpotifyType.PLAYLIST}>Playlist</option>
+                        <option value={SpotifyType.ARTIST}>Artist</option>
+                    </select>
                     <input value={this.state.keyword}
                         onChange={this.keywordChanged}
                         className="form-control"
-                        placeholder="keyword"/>
+                        placeholder="keyword can not be empty"/>
                     <div className="input-graoup-append">
                         <button 
                             className="btn btn-primary"
