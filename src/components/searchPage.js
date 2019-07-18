@@ -28,7 +28,10 @@ export default class searchPage extends React.Component {
 
     searchTypeChanged = event => {
         this.setState({
-            type: event.target.value
+            type: event.target.value,
+            items: [],
+            open: false,
+            selectedItem: null
         });
     }
 
