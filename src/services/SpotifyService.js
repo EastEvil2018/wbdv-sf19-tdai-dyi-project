@@ -53,9 +53,9 @@ export class SpotifyServiceClient {
         );
     }
 
-    searchMusicDetails(id, accessToken) {
+    searchDetails(id, accessToken, spotifyKey) {
         const endpoint 
-            = "https://api.spotify.com/v1/tracks/" + id;
+            = "https://api.spotify.com/v1/" + spotifyKey + '/' + id;
 
         return fetch(endpoint, {
             method: "GET",
