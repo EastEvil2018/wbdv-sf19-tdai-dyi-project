@@ -93,7 +93,7 @@ export default class searchPage extends React.Component {
 
         return(
             <div>
-                <h1>Search Musics</h1>
+                <h1>Search</h1>
                 <div className="input-group">
                     <select id="type"
                             value={this.state.type}
