@@ -1,4 +1,4 @@
-import { WebUtils } from "../utils/WebUtils";
+import { WebUtils } from "../../utils/WebUtils";
 
 export class SpotifyServiceClient {
     static instance = null;

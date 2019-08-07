@@ -1,14 +1,14 @@
 import React from 'react';
-import { SpotifyServiceClient } from '../services/SpotifyService';
-import { Modal, Button } from 'react-bootstrap';
-import { SpotifyType, SpotifyKey } from '../models/SearchType';
-import { WebUtils } from '../utils/WebUtils';
-import Track from './track';
-import PlayList from './playList';
-import Album from './album';
-import Artist from './artist';
+import { SpotifyServiceClient } from '../../services/spotify/SpotifyService';
+import { Button } from 'react-bootstrap';
+import { SpotifyType, SpotifyKey } from '../../models/Search/SearchType';
+import { WebUtils } from '../../utils/WebUtils';
+import Track from './Details/Track';
+import Album from './Details/Album';
+import Artist from './Details/Artist';
+import PlayList from './Details/PlayList';
 
-export default class searchPage extends React.Component {
+export default class SearchComponent extends React.Component {
     constructor() {
         super();
         this.state = {

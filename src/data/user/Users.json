@@ -1,0 +1,18 @@
+[
+    {
+        "_id": 123,
+        "username": "Alice",
+        "password": "alice",
+        "role": "admin",
+        "firstName": "Alice",
+        "lastName": "Alexander"
+    },
+    {
+        "_id": 234,
+        "username": "Bob",
+        "password": "bob",
+        "role": "user",
+        "firstName": "Bob",
+        "lastName": "Cooper"
+    }
+]

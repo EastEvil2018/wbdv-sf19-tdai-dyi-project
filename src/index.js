@@ -1,12 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
-import Whiteboard from './components/whiteBoard';
+import { createStore, combineReducers } from 'redux';
+import { Provider } from 'react-redux';
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
+import UserLoginReducer from './redux/login/UserLoginReducer';
+import UserRegistrationReducer from './redux/UserRegistration/UserRegistrationReducer'
+import RoutedApp from './RoutedApp';
+const combinedReducers = combineReducers({UserLoginReducer, UserRegistrationReducer});
+
+const store = createStore(combinedReducers);
 ReactDOM.render(
-    <Whiteboard/>,
+    <Provider store={store}>
+        <RoutedApp/>
+    </Provider>,
     document.getElementById('root')
 );
 
