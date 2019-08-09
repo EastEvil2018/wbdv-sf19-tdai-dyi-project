@@ -11,7 +11,7 @@ export default class UserRegistrationComponent extends React.Component {
 
     render(){
         if (this.props.registered)
-            return <Redirect to="/home" />;
+            return <Redirect to="/login" />;
         console.log(this.props);
         return (
             <div>
@@ -85,6 +85,19 @@ export default class UserRegistrationComponent extends React.Component {
                                placeholder="Alexander"
                                onChange={(event) =>
                                     this.props.userRegistrationInfoChanged({...this.props.info, lastName: event.target.value})}/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="role" 
+                           class="col-sm-2 col-form-label">
+                        Role </label>
+                    <div class="col-sm-10">
+                        <select class="w-100"
+                                onChange={(event) => 
+                                    this.props.userRegistrationInfoChanged({...this.props.info, role: event.target.value})}>
+                            <option value="USER">User</option>
+                            <option value="ADMIN">Admin</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group row">

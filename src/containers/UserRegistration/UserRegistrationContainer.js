@@ -1,5 +1,6 @@
 import UserRegistrationComponent from "../../components/UserRegistration/UserRegistrationComponent";
 import { connect } from 'react-redux';
+import UserService from "../../services/user/UserService";
 
 const stateToPropsMapper = state => ({
     ...state.UserRegistrationReducer
@@ -17,10 +18,16 @@ const propsToDispatcher = dispatch => ({
         if (info.password !== info.verifiedPassword) {
             return;
         }
-        console.log("Register");
-        dispatch({
-            "type": "REGISTER"
-        });
+        UserService.getInstance().register(info).then(
+            response => {
+                console.log("Register");
+                console.log(response);
+                dispatch({
+                    "type": "REGISTER"
+                });                
+            }
+        );
+
     },
     uploadImage: (imageInfo) => {
         dispatch({

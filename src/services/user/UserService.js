@@ -35,4 +35,24 @@ export default class UserService {
 			return response.json();
 		})
     }
+    register(info) {
+        console.log(info);
+        var user = {
+            username: info.username,
+            password: info.password,
+            firstName: info.firstName,
+            lastName: info.lastName,
+            role: info.role,
+            profilePhoto: info.profileImgBase64
+        }
+        return fetch(URL + '/api/users', {
+            method: "POST",
+			body: JSON.stringify(user),
+			headers: {
+				'content-type': 'application/json'
+			}
+        }).then(response => {
+            return response.json();
+        })        
+    }
 }

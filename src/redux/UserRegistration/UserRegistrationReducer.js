@@ -6,7 +6,7 @@ const UserRegistrationReducer = (
             verifiedPassword: "",
             firstName: "",
             lastName: "",
-            role: "",
+            role: "USER",
             profileImgBase64: null,
         },
         message: "",
