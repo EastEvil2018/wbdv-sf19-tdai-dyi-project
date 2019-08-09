@@ -8,8 +8,11 @@ export default class LikeList extends React.Component {
 
     render() {
         return (
-            <div class="container-fluid">
-                <div class="row">
+            <div class="card mt-2">
+                <div class="card-header">
+                    Likes
+                </div>
+                <div class="card-body row">
                     <LikeCard />
                     <LikeCard />
                     <LikeCard />

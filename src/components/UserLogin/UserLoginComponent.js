@@ -1,6 +1,4 @@
 import React from 'react';
-import UserService from '../../services/user/UserService';
-import { WebUtils } from '../../utils/WebUtils';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import { Redirect } from "react-router-dom";
 export default class UserLoginComponent extends React.Component {

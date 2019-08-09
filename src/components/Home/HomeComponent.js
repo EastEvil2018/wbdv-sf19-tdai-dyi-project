@@ -1,5 +1,4 @@
 import React from 'react';
-import Header from './Header/Header';
 import PublicContentList from './Content/PublicContent/PublicContentList';
 import PrivateContentList from './Content/PrivateContent/PrivateContentList';
 

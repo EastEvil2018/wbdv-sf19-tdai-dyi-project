@@ -57,11 +57,11 @@ export default class UserRegistrationComponent extends React.Component {
                                placeholder="123qwe#$%"
                                onChange={(event) =>
                                     this.props.userRegistrationInfoChanged({...this.props.info, verifiedPassword: event.target.value})}/>
+                        <span class="text-danger" 
+                             hidden={this.props.info.password === this.props.info.verifiedPassword ? true : false}>
+                            Verified Password not match
+                        </span>
                     </div>
-                </div>
-                <div class="form-group row text-danger" 
-                     hidden={this.props.info.password === this.props.info.verifiedPassword ? true : false}>
-                    Verified Password not match
                 </div>
                 <div class="form-group row">
                     <label for="firstName" 

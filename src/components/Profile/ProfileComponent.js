@@ -16,7 +16,7 @@ export default class ProfileComponent extends React.Component {
     render(){    
 
         return (
-            <div class="w-100 container-fluid">
+            <div class="w-100">
                 <div class="row">
                     <div class="card mb-3 w-100">
                         <div class="card-header">
