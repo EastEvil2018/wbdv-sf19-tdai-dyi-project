@@ -6,6 +6,7 @@ import FollowerList from './FollowerList';
 import CommentList from './CommentList';
 import LikeList from './LikeList';
 import SettingForm from './SettingForm';
+import PlayListCard from './PlayListCard';
 
 export default class ProfileComponent extends React.Component {
     constructor(props) {
@@ -59,9 +60,15 @@ export default class ProfileComponent extends React.Component {
                 <Route path="/profile/:uid/playlist"
                        exact={true}
                        component={PlayListList}/>
+                <Route path="/profile/:uid/playlist/:pid"
+                       exact={true}
+                       component={PlayListCard}/>
                 <Route path="/profile/:uid/settings"
                        exact={true}
                        component={SettingForm}/>
+                <Route path="/profile/:uid"
+                        exact={true}
+                        component={PlayListList}/>  
                 <Route path="/profile"
                         exact={true}
                         component={PlayListList}/>  

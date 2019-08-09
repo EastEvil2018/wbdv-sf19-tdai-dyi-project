@@ -9,7 +9,15 @@ import UserRegistrationReducer from './redux/UserRegistration/UserRegistrationRe
 import RoutedApp from './RoutedApp';
 import SearchReducer from './redux/Search/SearchReducer';
 import DetailReducer from './redux/Detail/DetailReducer';
-const combinedReducers = combineReducers({UserLoginReducer, UserRegistrationReducer, SearchReducer, DetailReducer}); 
+import UserStateReducer from './redux/UserState/UserStateReducer';
+import HomeReducer from './redux/Home/HomeReducer';
+const combinedReducers 
+    = combineReducers({UserLoginReducer, 
+                       UserRegistrationReducer, 
+                       SearchReducer, 
+                       DetailReducer,
+                       UserStateReducer,
+                       HomeReducer}); 
 
 const store = createStore(combinedReducers);
 ReactDOM.render(

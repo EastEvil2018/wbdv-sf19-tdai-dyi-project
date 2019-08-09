@@ -4,7 +4,8 @@ import UserService from "../../services/user/UserService";
 
 
 const stateToPropsMapper = state => ({
-    ...state.UserLoginReducer
+    ...state.UserLoginReducer,
+    ...state.UserStateReducer
 })
 
 const propsToDispatcher = dispatch => ({
@@ -25,14 +26,21 @@ const propsToDispatcher = dispatch => ({
         UserService.getInstance().login(username, password).then(
             response => {
                 console.log(response);
-                if (response === -1) {
+                UserService.getInstance().getUserFromSession().then(
+                    response => {
+                        console.log("Get Session", response);
+                    }
+                );
+                if (response.message) {
                     dispatch({
                         type: "LOG_IN_FAILED",
                         message: "Log in failed"
                     });
                 } else {
                     dispatch({
-                        type: "LOG_IN_SUCCEED"
+                        type: "USER_LOG_IN",
+                        id: "response.id",
+                        role: "response.role"
                     });
                 }
             }

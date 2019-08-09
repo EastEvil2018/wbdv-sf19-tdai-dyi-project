@@ -55,4 +55,12 @@ export default class UserService {
             return response.json();
         })        
     }
+    getUserFromSession() {
+        return fetch(URL + '/api/session/user', {
+            method: "GET"
+        }).then(response => {
+            console.log(response);
+            return response.json();
+        })
+    }
 }

@@ -7,6 +7,7 @@ import HomeComponent from './components/Home/HomeComponent';
 import Header from './components/Home/Header/Header';
 import SearchContainer from './containers/Search/SearchContainer';
 import DetailContainer from './containers/Detail/DetailContainer';
+import HomeContainer from './containers/Home/HomeContainer';
 export default class RoutedApp extends React.Component {
     render() {
         return (
@@ -17,7 +18,7 @@ export default class RoutedApp extends React.Component {
                     </div>
                     <Route path="/"
                            exact={true}
-                           component={HomeComponent}/>
+                           component={HomeContainer}/>
                     <Route exact={true}
                            path="/search"
                            component={SearchContainer}/>
@@ -33,7 +34,7 @@ export default class RoutedApp extends React.Component {
                            component={UserRegistrationContainer}/>
                     <Route exact = {true}
                            path="/home" 
-                           component={HomeComponent}/>
+                           component={HomeContainer}/>
                 </div>
             </Router>
         )

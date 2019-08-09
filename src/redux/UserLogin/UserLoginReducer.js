@@ -2,7 +2,6 @@ const UserLoginReducer = (
     state = {
         username: "",
         password: "",
-        loggedIn: false,
         message: ""
     }, action
 ) => {
@@ -12,7 +11,7 @@ const UserLoginReducer = (
         case "USERNAME_CHANGED":
             return {...state, username: action.username, message: ""};
         case "LOG_IN_SUCCEED":
-            return {...state, loggedIn: true, message: ""};
+            return {...state, message: ""};
         case "LOG_IN_FAILED":
             return {...state, message: action.message};
         default:

@@ -14,7 +14,8 @@ export default class HomeComponent extends React.Component {
                 <div className="row">
                     <PublicContentList></PublicContentList>
                 </div>
-                <div className="row">
+                <div className="row"
+                     hidden={this.props.loggedIn ? false : true}>
                     <PrivateContentList></PrivateContentList>
                 </div>
             </div>

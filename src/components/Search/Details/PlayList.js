@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal, Button } from 'react-bootstrap';
 
-export default class PlayList extends React.Component {
+export default class PlayLists extends React.Component {
     constructor(props) {
         super(props);
     }

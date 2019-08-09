@@ -9,8 +9,9 @@ export default class UserLoginComponent extends React.Component {
 
     render() {
         console.log("render login");
+        console.log(this.props);
         if (this.props.loggedIn)
-            return <Redirect to="/profile" />;
+            return <Redirect to="/home" />;
         return (
             <div>
                 <div class="form-group row">
