@@ -45,11 +45,11 @@ const propsToDispatcher = dispatch => ({
         dispatch({
             type: "UPDATE_PRODUCT_LIKES",
             likes: likes
-        },
-        {
+        });
+        dispatch({
             type: "UPDATE_LOGGED_IN_USER",
             user: user
-        })
+        });
     } ,
     unLike: (user, product) => {
         LikeServiceClient.getInstance().unLike(user, product);
@@ -66,12 +66,20 @@ const propsToDispatcher = dispatch => ({
         })
     },
     addToPlayList: (user, product, playListId) => {
-        PlayListServiceClient.addToPlayList(user, product, playListId);
-        user = UserServiceClient.getInstance().getUserById(user.id);
-        dispatch({
-            type: "UPDATE_LOGGED_IN_USER",
-            user: user            
-        });
+        if (playListId === "")
+            return;
+        PlayListServiceClient.getInstance().addToPlayList(user, product, playListId).then(
+            response => {
+                UserServiceClient.getInstance().getUserById(user.id).then(
+                    response => {
+                        dispatch({
+                            type: "UPDATE_LOGGED_IN_USER",
+                            user: response            
+                        });  
+                    }
+                )
+            }
+        );
     },
     selectedPlayListChanged: (playListId) => {
         dispatch({

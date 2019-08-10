@@ -13,11 +13,16 @@ const stateToPropsMapper = state => ({
 
 const propsToDispatcher = dispatch => ({
     getUserById: (userId) => {
-        const user = UserServiceClient.getInstance().getUserById(userId);
-        dispatch({
-            type: "GET_USER_BY_ID",
-            user: user
-        });
+        UserServiceClient.getInstance().getUserById(userId).then(
+            response => {
+                console.log("Profile Get User By id", response);
+                dispatch({
+                    type: "GET_USER_BY_ID",
+                    user: response
+                });                
+            }
+        );
+
     },
     follow: (userId, profileId) => {
         FollowServiceClient.follow(userId, profileId);
@@ -45,12 +50,23 @@ const propsToDispatcher = dispatch => ({
         });
     },
     createPlayList: (userId, playList) => {
-        PlayListServiceClient.getInstance().createPlayList(userId, playList);
-        const user = UserServiceClient.getInstance().getUserById(userId);
-        dispatch({
-            type: "UPDATE_LOGGED_IN_USER",
-            user: user
-        });
+        PlayListServiceClient.getInstance().createPlayList(userId, playList).then(
+            response => {
+                UserServiceClient.getInstance().getUserById(userId).then(
+                    response => {
+                        dispatch({
+                            type: "UPDATE_LOGGED_IN_USER",
+                            user: response
+                        });
+                        dispatch({
+                            type: "UPDATE_PROFILE_USER",
+                            user: response
+                        });
+                })                
+            }
+        );
+
+
     },
     deleteComment: (id) => {
         var comment = CommentServiceClient.findCommentById(id);

@@ -1,4 +1,5 @@
 import { WebUtils } from "../../utils/WebUtils";
+const URL = /*"https://wbdv-sf19-project-java-server.herokuapp.com/"*/ 'http://localhost:8080'
 
 export class SpotifyServiceClient {
     static instance = null;
@@ -18,7 +19,7 @@ export class SpotifyServiceClient {
     getAccessToken() {
         const client_id = "d64551f826e14f608c5e9a106c912991";
         const client_secret = "5cd0f786c52542a6a2c29cc8e8c5ccf8";
-        const endpoint = "https://wbdv-sf19-project-java-server.herokuapp.com/api/token/" + client_id;
+        const endpoint = URL + "/api/token/" + client_id;
         return fetch(endpoint, {
             method: "POST",
 			body: client_secret

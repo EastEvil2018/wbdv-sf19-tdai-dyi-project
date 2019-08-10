@@ -10,9 +10,9 @@ export default class UserRegistrationComponent extends React.Component {
     }
 
     render(){
-        if (this.props.registered) {
-            return <Redirect to="/login" />;
-        }
+        // if (this.props.registered) {
+        //     return <Redirect to="/login" />;
+        // }
         console.log(this.props);
         return (
             <div>
@@ -115,7 +115,7 @@ export default class UserRegistrationComponent extends React.Component {
                     <div class="col-sm-10">
                         <button class="btn btn-primary btn-block"
                                 onClick={(event) => 
-                                    this.props.register(this.props.info)}>
+                                    this.props.register(this.props.info, this.props.history)}>
                             Sign Up
                         </button>
                         <div class="row">

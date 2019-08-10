@@ -21,7 +21,7 @@ export default class UserStateComponent extends React.Component {
                         <li class="nav-item ml-2">
                             <button type="button" 
                                     class="btn btn-primary"
-                                    onClick={(event) => this.props.logOut()}>
+                                    onClick={(event) => this.props.logout()}>
                                 Log Out
                             </button>
                         </li>

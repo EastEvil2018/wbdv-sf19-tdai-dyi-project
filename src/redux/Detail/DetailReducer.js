@@ -23,6 +23,10 @@ const DetailReducer = (
             return {...state, comments: action.comments}
         case "UPDATE_PRODUCT_LIKES":
             return {...state, likes: action.likes}
+        case "SELECTED_PLAYLIST_CHANGED":
+            return {...state, selectedPlayListId: action.selectedPlayListId}
+        case "COMMENT_CONTENT_CHANGED":
+            return {...state, newCommentContent: action.commentContent}
         default:
             console.log(state);
             return {...state};

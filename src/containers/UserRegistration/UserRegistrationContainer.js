@@ -1,7 +1,7 @@
 import UserRegistrationComponent from "../../components/UserRegistration/UserRegistrationComponent";
 import { connect } from 'react-redux';
 import UserServiceClient from "../../services/user/UserService";
-import { history } from "../../helper/history";
+// import { history } from "../../helper/history";
 import { withRouter } from "react-router";
 
 
@@ -17,7 +17,7 @@ const propsToDispatcher = dispatch => ({
             registrationInfo: info
         });
     },
-    register: (info) => {
+    register: (info, history) => {
         if (info.password !== info.verifiedPassword) {
             return;
         }
@@ -26,9 +26,6 @@ const propsToDispatcher = dispatch => ({
                 console.log("Register");
                 console.log(response);
                 history.push('/login'); 
-                dispatch({
-                    "type": "REGISTER"
-                })
             });
 
     },

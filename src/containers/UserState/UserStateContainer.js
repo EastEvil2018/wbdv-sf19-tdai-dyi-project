@@ -11,19 +11,24 @@ const propsToDispatcher = dispatch => ({
     checkSession: () => {
         UserServiceClient.getInstance().getUserFromSession().then(
             response => {
-                console.log(response);
+                console.log("GET SESSION : ",response);
                 if (response.message)
                     return;
-                else
-                    dispatch({
-                        type: "USER_LOG_IN",
-                        user: response
-                    });
+                else {
+                    UserServiceClient.getInstance().getUserById(response.id).then(
+                        response => {
+                            dispatch({
+                                type: 'UPDATE_LOGGED_IN_USER',
+                                user: response
+                            });
+                        }
+                    )
+                }
             }
         );
     },
-    logOut: () => {
-        UserServiceClient.getInstance().logOut().then(
+    logout: () => {
+        UserServiceClient.getInstance().logout().then(
             response => {
                 dispatch({
                     type: "LOG_OUT"

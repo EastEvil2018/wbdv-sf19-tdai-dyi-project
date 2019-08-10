@@ -5,18 +5,15 @@ const PlayListList = ({playlists,
                        newPlayList, 
                        createPlayList, 
                        newPlayListNameChanged}) => {
+    console.log("Has create list access : ", hasCreateAccess);
+    console.log("Render playlists : ", playlists);
     return (
         <div class="row">
             <div class="card mb-3 w-100">
                 <div class="card-header">
                     PlayLists
                 </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                        <a href={"/playlist/" + "333"}
-                           target="_blank"
-                           class="">list 1</a>
-                    </li>                    
+                <ul class="list-group list-group-flush">                  
                     {playlists && playlists.map(list => {
                         return (
                             <li class="list-group-item">

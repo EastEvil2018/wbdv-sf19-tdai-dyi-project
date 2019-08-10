@@ -66,7 +66,7 @@ export default class ProfileComponent extends React.Component {
                         <div class="row no-gutters">
                             <div class="col-sm-4 col-md-4 col-lg-2 card border-0 p-3">
                                 <img className="card-img-top rounded-circle"
-                                    src={require('../../images/avatar5.png')}/> 
+                                    src={this.props.user.profilePhoto/*require('../../images/avatar5.png')*/}/> 
                             </div>
                             <div class="col-sm-8 col-md-8 col-lg-10 card border-0">
                                 <div class="card-body">
@@ -120,12 +120,12 @@ export default class ProfileComponent extends React.Component {
                 <Route path="/profile/:uid/playlist"
                        exact={true}
                        render={() => 
-                        <PlayListList playlist={this.props.user.playlist}
+                        <PlayListList playlists={this.props.user.playlists}
                                       userId={this.props.user.id}
                                       hasCreateAccess={this.props.loggedIn && this.props.loggedInUser.id === this.props.user.id}
                                       newPlayList={this.props.newPlayList}
                                       createPlayList={this.props.createPlayList} 
-                                      playListNameChanged={this.props.playListNameChanged}/>}/>
+                                      newPlayListNameChanged={this.props.newPlayListNameChanged}/>}/>
                 <Route path="/profile/:uid/settings"
                        exact={true}
                        render={(event) => 
@@ -137,21 +137,21 @@ export default class ProfileComponent extends React.Component {
                 <Route path="/profile/:uid"
                         exact={true}
                         render={() => 
-                            <PlayListList playlist={this.props.user.playlist}
+                            <PlayListList playlists={this.props.user.playlists}
                                           userId={this.props.user.id}
                                           hasCreateAccess={this.props.loggedIn && this.props.loggedInUser.id === this.props.user.id}
                                           newPlayList={this.props.newPlayList}
                                           createPlayList={this.props.createPlayList} 
-                                          playListNameChanged={this.props.playListNameChanged}/>}/>
+                                          newPlayListNameChanged={this.props.newPlayListNameChanged}/>}/>
                 <Route path="/profile"
                         exact={true}
                         render={() => 
-                            <PlayListList playlist={this.props.user.playlist}
+                            <PlayListList playlists={this.props.user.playlists}
                                           userId={this.props.user.id}
                                           hasCreateAccess={this.props.loggedIn && this.props.loggedInUser.id === this.props.user.id}
                                           newPlayList={this.props.newPlayList}
                                           createPlayList={this.props.createPlayList} 
-                                          playListNameChanged={this.props.playListNameChanged}/>}/>
+                                          newPlayListNameChanged={this.props.newPlayListNameChanged}/>}/>
             </div>
         );
     }

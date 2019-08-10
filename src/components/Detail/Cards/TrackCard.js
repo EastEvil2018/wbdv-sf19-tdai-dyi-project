@@ -45,7 +45,7 @@ const TrackCard = ({track,
                 <div class="card-footer">
                     <div class="input-group">
                         <select class="custom-select mr-2"
-                                onChange={(event) => selectedPlayListChanged(event)}>
+                                onChange={(event) => selectedPlayListChanged(event.target.value)}>
                             <option selected value="">Select a Playlist</option>
                             {loggedInUser.playlists.map(playlist => {
                                 return (

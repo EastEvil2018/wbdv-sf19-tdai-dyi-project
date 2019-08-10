@@ -46,7 +46,8 @@ const ProfileReducer = (
         },
         settingForm: {
 
-        }
+        },
+        message: ""
     }, action
 ) => {
     switch(action.type) {
@@ -69,6 +70,9 @@ const ProfileReducer = (
             return {...state, settingForm: action.settingForm};
         case "SETTING_FORM_IMAGE_UPLOAD":
             return {...state, settingForm: {...state.settingForm, profileImgBase64: action.base64Image }}
+        case "UPDATE_PROFILE":
+            console.log("UPDATE_PROFILE");
+            return {...state, message: action.message}
         default:
             return {...state};
     }
