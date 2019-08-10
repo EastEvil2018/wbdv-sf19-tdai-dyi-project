@@ -2,17 +2,27 @@ import React from 'react';
 import {Carousel, Dropdown} from 'react-bootstrap';
 import '../../../css/components/Detail/Carousels/ArtistCarousel.css';
 import LikeList from '../../Profile/LikeList';
-import CommentList from '../../Profile/CommentList';
+import CommentList from '../../Comment/CommentList';
 
-const TrackCard = ({product}) => {
+const TrackCard = ({track, 
+                    loggedIn, 
+                    loggedInUser, 
+                    likes,
+                    comments,
+                    like, 
+                    unLike, 
+                    addToPlayList, 
+                    selectedPlayListChanged,
+                    selectedPlayListId,
+                    commmentContent,
+                    commentContentChanged, 
+                    postComment,
+                    deleteComment}) => {
     return (
         <div>
             <div class="card">
                 <div class="card-header">
                     Track
-                    <span class="float-right">
-                        <a href="#">Likes : 78</a>
-                    </span>
                 </div>
                 <div class="card-body container">
                     <div class="row my-2">
@@ -20,7 +30,7 @@ const TrackCard = ({product}) => {
                             Name
                         </div>
                         <div class="col-sm-10 text-center">
-                            Rap God
+                            {track.name}
                         </div>
                     </div>
                     <div class="row">
@@ -28,35 +38,53 @@ const TrackCard = ({product}) => {
                             Artist
                         </div>
                         <div class="col-sm-10 px-0 text-center">
-                            <ArtistCarousel />
+                            <ArtistCarousel artists={track.artists}/>
                         </div>                                       
                     </div>
                 </div>
                 <div class="card-footer">
-                    <Dropdown>
-                        <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            Add to playList
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            <Dropdown.Item>List 1</Dropdown.Item>
-                            <Dropdown.Item>List 2</Dropdown.Item>
-                            <Dropdown.Item>List 3</Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
+                    <div class="input-group">
+                        <select class="custom-select mr-2"
+                                onChange={(event) => selectedPlayListChanged(event)}>
+                            <option selected value="">Select a Playlist</option>
+                            {loggedInUser.playlists.map(playlist => {
+                                return (
+                                    <option value={playlist.id}>{playlist.name}</option>
+                                );
+                            })}
+                        </select>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" 
+                                    type="button"
+                                    onClick={() => 
+                                        addToPlayList(loggedInUser.id, track.id, selectedPlayListId)}>
+                                Add To PlayList
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <LikeList />
-            <CommentList />
+            <LikeList likes={likes}/>
+            <CommentList comments={comments} 
+                         showCommenterName={true} 
+                         showProductName={false}
+                         adminMode={loggedIn && loggedInUser.role === "admin"}
+                         deleteComment={deleteComment} />
             <div class="card mt-2">
                 <div class="card-header">
                     Write Comment
                 </div> 
                 <div class="card-body">
                     <div class="row">
-                        <textarea class="form-control"rows="3"></textarea>
+                        <textarea class="form-control"
+                                  rows="3"
+                                  value={commmentContent}
+                                  onChange={(event) => commentContentChanged(event.target.value)}></textarea>
                     </div>
                     <div class="row mt-2">
-                        <button type="button" class="btn btn-info ml-auto">Sumbit</button>
+                        <button type="button" 
+                                class="btn btn-info ml-auto"
+                                onClick={() => postComment(loggedInUser, track, commmentContent)}>Sumbit</button>
                     </div>
                 </div>
             </div>
@@ -65,7 +93,7 @@ const TrackCard = ({product}) => {
 }
 
 
-const ArtistCarousel = ({}) => {
+const ArtistCarousel = ({artists}) => {
     return (
         <div class="w-100">
         <Carousel indicators={false}>
@@ -82,19 +110,25 @@ const ArtistCarousel = ({}) => {
                     </a>
                 </div>
             </Carousel.Item>
-            <Carousel.Item>
-                <div class="row my-3">
-                    <img className="d-block rounded-circle mx-auto"
-                        src={require('../../../images/snoop-dogg.jpg')}
-                        alt="First slide"
-                        style={{width: "6rem", height: "6rem"}}/>
-                </div>
-                <div class="row my-3">
-                    <a class="text-center w-100" href="#">
-                        Snoopy Doggy
-                    </a>
-                </div>
-            </Carousel.Item>
+            {artists.map(artist => {
+                return (
+                    <Carousel.Item>
+                        <div class="row my-3">
+                            <img className="d-block rounded-circle mx-auto"
+                                src={require('../../../images/snoop-dogg.jpg')}
+                                alt="First slide"
+                                style={{width: "6rem", height: "6rem"}}/>
+                        </div>
+                        <div class="row my-3">
+                            <a class="text-center w-100" 
+                               href={"/details/artist/" + artist.id}
+                               target="_blank">
+                                {artist.name}
+                            </a>
+                        </div>
+                    </Carousel.Item>                    
+                );
+            })}
         </Carousel>
         </div>
     );

@@ -1,35 +1,29 @@
 import React from 'react';
 
-export default class FollowerList extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render(){
-        return (
-            <div class="row">
-                <div class="card mb-3 w-100">
-                    <div class="card-header">
-                        Followers
-                        <a href="#" 
-                        class="float-right">More</a>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <a href="#">Luqi Wang</a>
-                        </li>                    
-                        <li class="list-group-item">
-                            <a href="#">Eason</a>
-                        </li>                    
-                        <li class="list-group-item">
-                            <a href="#">EastEavil95</a>
-                        </li>                    
-                        <li class="list-group-item">
-                            <a href="#">Peng Tong</a>
-                        </li>
-                    </ul>
+export const FollowerList = ({followers}) => {
+    return (
+        <div class="row">
+            <div class="card mb-3 w-100">
+                <div class="card-header">
+                    Followers
                 </div>
-            </div>   
-        );
-    }
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <a href="/profile/333"
+                           target="_blank">Luqi Wang</a>
+                    </li>                    
+                    {followers && followers.map(follower => {
+                        return (
+                            <li class="list-group-item">
+                                <a href={"/profile/" + follower.id}
+                                   target="_blank">{follower.name}</a>
+                            </li>  
+                        );
+                    })}
+                </ul>
+            </div>
+        </div>   
+    );
 }
+
+export default FollowerList;

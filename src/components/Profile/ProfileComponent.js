@@ -1,20 +1,60 @@
 import React from 'react';
-import PlayListList from './PlayListList';
+import PlayListList from '../PlayList/PlayListList';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import FollowList from './FollowList';
 import FollowerList from './FollowerList';
-import CommentList from './CommentList';
+import CommentList from '../Comment/CommentList';
 import LikeList from './LikeList';
 import SettingForm from './SettingForm';
-import PlayListCard from './PlayListCard';
 
 export default class ProfileComponent extends React.Component {
     constructor(props) {
         super(props);
-        
+        const paths = props.location.pathname.split('/').splice(1);
+        const userId = paths[1];
+        console.log("Enter profile:", userId);
+        this.props.getUserById(userId);
+    }
+    hasFollowed() {
+        const loggedInUser = this.props.loggedInUser;
+        const user = this.props.user;
+        return loggedInUser.follows.find(follow => follow.user.id === user.id) !== -1;
+    }
+    renderFollowButton() {
+        switch(this.props.loggedIn) {
+            case true:
+                if (this.props.user.id === this.props.loggedInUser.id) {
+                    return;
+                } else {
+                    if (this.hasFollowed()) {
+                        return (
+                            <button type="button" 
+                                    class="btn btn-primary"
+                                    onClick={() => 
+                                        this.props.unfollow(this.props.loggedInUser.id, this.props.user.id)}>
+                                UnFollow
+                            </button>
+                        );
+                    } else {
+                        return (
+                            <button type="button" 
+                                    class="btn btn-primary"
+                                    onClick={() => 
+                                        this.props.follow(this.props.loggedInUser.id, this.props.user.id)}>
+                                Follow
+                            </button>
+                        );
+                    }
+                }
+            case false:
+                return;
+            default:
+                return;
+        }
     }
 
-    render(){    
+    render(){   
+        console.log("ProfileComponent: ", this.props);      
 
         return (
             <div class="w-100">
@@ -30,16 +70,31 @@ export default class ProfileComponent extends React.Component {
                             </div>
                             <div class="col-sm-8 col-md-8 col-lg-10 card border-0">
                                 <div class="card-body">
-                                    <h5 class="card-title">EastEvil</h5> 
-                                    <a href="#" class="btn btn-primary float-right">Follow</a>                                    
-                                    <a href="#" class="btn btn-primary float-right mr-2">UnFollow</a>
-                                    <p class="card-text">A Fun Guy</p>
-                                    <Link class="card-link" to={"/profile/" + 333 + "/follows"}>Follows</Link>
-                                    <Link class="card-link" to={"/profile/" + 333 + "/followers"}>Followers</Link>
-                                    <Link class="card-link" to={"/profile/" + 333 + "/likes"}>Likes</Link>
-                                    <Link class="card-link" to={"/profile/" + 333 + "/comments"}>Comments</Link>
-                                    <Link class="card-link" to={"/profile/" + 333 + "/playlist"}>PlayList</Link>
-                                    <Link class="card-link" to={"/profile/" + 333 + "/settings"}>Settings</Link>
+                                    <h5 class="card-title">{this.props.user.username}EastEvil</h5> 
+                                    <p class="card-text">{this.props.user.intro}A Fun Guy</p>
+                                    {this.renderFollowButton()}
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-2">
+                                                <Link class="card-link" to={"/profile/" + this.props.user.id + "/follows"}>Follows</Link>
+                                            </div>
+                                            <div class="col-2">
+                                                <Link class="card-link" to={"/profile/" + this.props.user.id + "/followers"}>Followers</Link>
+                                            </div>
+                                            <div class="col-2">
+                                                <Link class="card-link" to={"/profile/" + this.props.user.id + "/likes"}>Likes</Link>
+                                            </div>
+                                            <div class="col-2">
+                                                <Link class="card-link" to={"/profile/" + this.props.user.id + "/comments"}>Comments</Link>
+                                            </div>
+                                            <div class="col-2">
+                                                <Link class="card-link" to={"/profile/" + this.props.user.id + "/playlist"}>PlayList</Link>
+                                            </div>
+                                            <div class="col-2" hidden={this.props.loggedIn ? false : true}>
+                                                <Link class="card-link" to={"/profile/" + this.props.user.id + "/settings"}>Settings</Link>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -47,31 +102,56 @@ export default class ProfileComponent extends React.Component {
                 </div>
                 <Route path="/profile/:uid/follows"
                         exact={true}
-                        component={FollowList}/>   
+                        render={() => <FollowList follows={this.props.user.follows}/>}/>   
                 <Route path="/profile/:uid/followers"
                        exact={true}
-                       component={FollowerList}/>
+                       render={() => <FollowerList followers={this.props.user.followers}/>}/>
                 <Route path="/profile/:uid/comments"
                        exact={true}
-                       component={CommentList}/>
+                       render={() => 
+                        <CommentList comments={this.props.user.comments}
+                                     showProductName={true}
+                                     showCommenterName={false}
+                                     adminMode={this.props.loggedIn && this.props.loggedInUser.role === "admin"}
+                                     deleteComment={this.props.deleteComment}/>}/>
                 <Route path="/profile/:uid/likes"
                        exact={true}
-                       component={LikeList}/>
+                       render={() => <LikeList likes={this.props.user.likes}/>}/>
                 <Route path="/profile/:uid/playlist"
                        exact={true}
-                       component={PlayListList}/>
-                <Route path="/profile/:uid/playlist/:pid"
-                       exact={true}
-                       component={PlayListCard}/>
+                       render={() => 
+                        <PlayListList playlist={this.props.user.playlist}
+                                      userId={this.props.user.id}
+                                      hasCreateAccess={this.props.loggedIn && this.props.loggedInUser.id === this.props.user.id}
+                                      newPlayList={this.props.newPlayList}
+                                      createPlayList={this.props.createPlayList} 
+                                      playListNameChanged={this.props.playListNameChanged}/>}/>
                 <Route path="/profile/:uid/settings"
                        exact={true}
-                       component={SettingForm}/>
+                       render={(event) => 
+                       <SettingForm settingForm={this.props.settingForm} 
+                                    settingFormChanged={this.props.settingFormChanged} 
+                                    uploadImage={this.props.uploadImage} 
+                                    updateUser={this.props.updateUser}
+                                    show={this.props.loggedIn && this.props.loggedInUser.id === this.props.user.id}/>}/>
                 <Route path="/profile/:uid"
                         exact={true}
-                        component={PlayListList}/>  
+                        render={() => 
+                            <PlayListList playlist={this.props.user.playlist}
+                                          userId={this.props.user.id}
+                                          hasCreateAccess={this.props.loggedIn && this.props.loggedInUser.id === this.props.user.id}
+                                          newPlayList={this.props.newPlayList}
+                                          createPlayList={this.props.createPlayList} 
+                                          playListNameChanged={this.props.playListNameChanged}/>}/>
                 <Route path="/profile"
                         exact={true}
-                        component={PlayListList}/>  
+                        render={() => 
+                            <PlayListList playlist={this.props.user.playlist}
+                                          userId={this.props.user.id}
+                                          hasCreateAccess={this.props.loggedIn && this.props.loggedInUser.id === this.props.user.id}
+                                          newPlayList={this.props.newPlayList}
+                                          createPlayList={this.props.createPlayList} 
+                                          playListNameChanged={this.props.playListNameChanged}/>}/>
             </div>
         );
     }

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import UserService from "../../services/user/UserService";
 import UserStateComponent from '../../components/UserState/UserStateComponent';
+import UserServiceClient from '../../services/user/UserService';
 
 
 const stateToPropsMapper = state => ({
@@ -9,7 +9,7 @@ const stateToPropsMapper = state => ({
 
 const propsToDispatcher = dispatch => ({
     checkSession: () => {
-        UserService.getInstance().getUserFromSession().then(
+        UserServiceClient.getInstance().getUserFromSession().then(
             response => {
                 console.log(response);
                 if (response.message)

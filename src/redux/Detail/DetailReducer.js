@@ -4,7 +4,11 @@ const DetailReducer = (
     state = {
         searchType: SpotifyType.TRACK,
         id: "",
-        product: Object
+        product: Object,
+        selectedPlayListId: "",
+        newCommentContent: "",
+        comments: [],
+        likes: []
     }, action
 ) => {
     switch(action.type) {
@@ -12,7 +16,13 @@ const DetailReducer = (
             return {...state, 
                     searchType: action.searchType, 
                     id: action.id, 
-                    product: action.product}
+                    product: action.product,
+                    comments: action.comments,
+                    likes: action.likes}
+        case "UPDATE_PRODUCT_COMMENTS":
+            return {...state, comments: action.comments}
+        case "UPDATE_PRODUCT_LIKES":
+            return {...state, likes: action.likes}
         default:
             console.log(state);
             return {...state};

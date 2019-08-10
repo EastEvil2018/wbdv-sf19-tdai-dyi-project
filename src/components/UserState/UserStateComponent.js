@@ -16,12 +16,14 @@ export default class UserStateComponent extends React.Component {
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link text-primary" 
-                               href={"/profile/" + this.props.id }>My profile</a>
+                               href={"/profile/" + this.props.loggedInUser.id }>My profile</a>
                         </li>              
-                        <li class="nav-item">
-                            <a class="nav-link text-primary" 
-                               href={"/home"}
-                               onClick={(event) => this.props.logOut()}>Log Out</a>
+                        <li class="nav-item ml-2">
+                            <button type="button" 
+                                    class="btn btn-primary"
+                                    onClick={(event) => this.props.logOut()}>
+                                Log Out
+                            </button>
                         </li>
                     </ul> 
                 );
@@ -31,13 +33,12 @@ export default class UserStateComponent extends React.Component {
                 return (
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link text-primary" 
+                            <a class="btn btn-primary" 
                                href="/login">Sign In</a>
                         </li>                
-                        <li class="nav-item">
-                            <a class="nav-link text-primary"
-                               href="/register"
-                               onClick={(event) => alert("Click Sign Up")}>Sign Up</a>
+                        <li class="nav-item ml-2">
+                            <a class="btn btn-primary"
+                               href="/register">Sign Up</a>
                         </li>
                     </ul> 
                 );

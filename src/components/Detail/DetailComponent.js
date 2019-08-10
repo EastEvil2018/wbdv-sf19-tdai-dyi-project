@@ -11,13 +11,25 @@ export default class DetailComponent extends React.Component {
         const type = paths[0];
         const id = paths[1];
         console.log(type + ":" + id);
+        console.log(this.props);
         this.props.initState(type, id);
     }
 
     render() {
         switch(this.props.product.type) {
             case SpotifyType.TRACK:
-                return <TrackCard product={this.props.product}/>
+                return <TrackCard track={this.props.product}
+                                  loggedIn={this.props.loggedIn}
+                                  loggedInUser={this.props.loggedInUser} 
+                                  like={this.props.postLike}
+                                  unLike={this.props.postUnlike} 
+                                  addToPlayList={this.props.addToPlayList}
+                                  selectedPlayListChanged={this.props.selectedPlayListChanged}
+                                  selectedPlayListId={this.props.selectedPlayListId}
+                                  commmentContent={this.props.newCommmentContent}
+                                  commentContentChanged={this.props.newCommentContentChanged}
+                                  postComment={this.props.postNewComment}
+                                  deleteComment={this.props.deleteComment}/>
             case SpotifyType.ALBUM:
                 return <AlbumCard product={this.props.product}/>
             case SpotifyType.ARTIST:

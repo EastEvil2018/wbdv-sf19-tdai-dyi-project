@@ -1,5 +1,7 @@
 import React from 'react';
 import UserStateContainer from '../../../containers/UserState/UserStateContainer';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+
 
 const Header = ({}) => {
     return (
@@ -12,7 +14,8 @@ const Header = ({}) => {
                         <a class="nav-link" href="/search">Search</a>
                     </li>
                 </ul>
-                <UserStateContainer />
+                <Route path="/" 
+                       component={UserStateContainer}/>
             </div>
         </nav>
     );

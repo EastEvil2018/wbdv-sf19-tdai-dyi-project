@@ -11,13 +11,17 @@ import SearchReducer from './redux/Search/SearchReducer';
 import DetailReducer from './redux/Detail/DetailReducer';
 import UserStateReducer from './redux/UserState/UserStateReducer';
 import HomeReducer from './redux/Home/HomeReducer';
+import ProfileReducer from './redux/Profile/ProfileReducer';
+import PlayListReducer from './redux/PlayList/PlayListReducer';
 const combinedReducers 
     = combineReducers({UserLoginReducer, 
                        UserRegistrationReducer, 
                        SearchReducer, 
                        DetailReducer,
                        UserStateReducer,
-                       HomeReducer}); 
+                       HomeReducer,
+                       ProfileReducer,
+                       PlayListReducer});
 
 const store = createStore(combinedReducers);
 ReactDOM.render(

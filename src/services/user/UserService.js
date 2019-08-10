@@ -2,9 +2,9 @@ import { WebUtils } from '../../utils/WebUtils';
 import users from '../../data/user/Users.json';
 import User from '../../models/UserLogin/User';
 
-const URL = 'https://wbdv-sf19-project-java-server.herokuapp.com'
+const URL = 'http://localhost:8080'
 
-export default class UserService {
+export default class UserServiceClient {
     static myInstance = null;
 
     constructor() {
@@ -12,9 +12,9 @@ export default class UserService {
     }
 
     static getInstance() {
-        if (UserService.myInstance == null) {
-            UserService.myInstance 
-                = new UserService();
+        if (this.myInstance == null) {
+            this.myInstance 
+                = new UserServiceClient();
         }
         return this.myInstance;
     }
@@ -27,7 +27,8 @@ export default class UserService {
         console.log(user);
         return fetch(URL + '/api/auth', {
 			method: "POST",
-			body: JSON.stringify(user),
+            body: JSON.stringify(user),
+            credentials: "same-origin",
 			headers: {
 				'content-type': 'application/json'
 			}
@@ -57,10 +58,39 @@ export default class UserService {
     }
     getUserFromSession() {
         return fetch(URL + '/api/session/user', {
-            method: "GET"
+            method: "GET",
+            credentials: "same-origin"
         }).then(response => {
             console.log(response);
             return response.json();
         })
+    }
+    getUserById(userId) {
+        return {
+            id: "1111",
+            role: "",
+            username: "east",
+            intro: "ssssss",
+            profileImageBase64: "",
+            comments: [],
+            likes: [],
+            follows: [],
+            followers: [],
+            playlist: []
+        };
+    }
+    updateUser(user) {
+        return {
+            id: "1111",
+            role: "",
+            username: "east",
+            intro: "ssssss",
+            profileImageBase64: "",
+            comments: [],
+            likes: [],
+            follows: [],
+            followers: [],
+            playlist: []
+        };        
     }
 }
