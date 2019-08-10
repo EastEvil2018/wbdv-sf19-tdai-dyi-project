@@ -11,14 +11,14 @@ const propsToDispatcher = dispatch => ({
     checkSession: () => {
         UserService.getInstance().getUserFromSession().then(
             response => {
-                console.log(response);
+                console.log("SESSION CHECK", response);
                 if (response.message)
                     return;
                 else
                     dispatch({
                         type: "USER_LOG_IN",
-                        id: response.user.id,
-                        role: response.user.role
+                        id: response.id,
+                        role: response.role
                     });
             }
         );

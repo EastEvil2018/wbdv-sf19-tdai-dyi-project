@@ -25,10 +25,10 @@ const propsToDispatcher = dispatch => ({
         console.log(username);
         UserService.getInstance().login(username, password).then(
             response => {
-                console.log(response);
+                console.log("LOGIN RESPONSE", response)
                 UserService.getInstance().getUserFromSession().then(
                     response => {
-                        console.log("Get Session", response);
+                        console.log("GET SESSION", response);
                     }
                 );
                 if (response.message) {
