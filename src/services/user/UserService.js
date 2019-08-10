@@ -2,7 +2,7 @@ import { WebUtils } from '../../utils/WebUtils';
 import users from '../../data/user/Users.json';
 import User from '../../models/UserLogin/User';
 
-const URL = 'http://localhost:8080'
+const URL = "https://wbdv-sf19-project-java-server.herokuapp.com/" //'http://localhost:8080'
 
 export default class UserServiceClient {
     static myInstance = null;
@@ -28,13 +28,22 @@ export default class UserServiceClient {
         return fetch(URL + '/api/auth', {
 			method: "POST",
             body: JSON.stringify(user),
-            credentials: "same-origin",
+            credentials: "include",
 			headers: {
 				'content-type': 'application/json'
 			}
 		}).then(response => {
 			return response.json();
 		})
+    }
+
+    logout() {
+        return fetch(URL + '/api/logout', {
+            method: "GET",
+            credentials: "include"
+        }).then(response => {
+            return response.json();
+        })
     }
     register(info) {
         console.log(info);
@@ -59,7 +68,7 @@ export default class UserServiceClient {
     getUserFromSession() {
         return fetch(URL + '/api/session/user', {
             method: "GET",
-            credentials: "same-origin"
+            credentials: "include"
         }).then(response => {
             console.log(response);
             return response.json();

@@ -17,16 +17,19 @@ const propsToDispatcher = dispatch => ({
                 else
                     dispatch({
                         type: "USER_LOG_IN",
-                        id: response.user.id,
-                        role: response.user.role
+                        user: response
                     });
             }
         );
     },
     logOut: () => {
-        dispatch({
-            type: "LOG_OUT"
-        });
+        UserServiceClient.getInstance().logOut().then(
+            response => {
+                dispatch({
+                    type: "LOG_OUT"
+                });
+            }
+        )
     }
 })
 

@@ -1,6 +1,5 @@
 import React from 'react';
-
-const PlayListList = ({playlist, 
+const PlayListList = ({playlists, 
                        userId, 
                        hasCreateAccess, 
                        newPlayList, 
@@ -18,7 +17,7 @@ const PlayListList = ({playlist,
                            target="_blank"
                            class="">list 1</a>
                     </li>                    
-                    {playlist && playlist.map(list => {
+                    {playlists && playlists.map(list => {
                         return (
                             <li class="list-group-item">
                                 <a href={"/playlist/" + list.id}

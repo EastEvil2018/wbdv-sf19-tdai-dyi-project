@@ -18,7 +18,7 @@ export default class ProfileComponent extends React.Component {
     hasFollowed() {
         const loggedInUser = this.props.loggedInUser;
         const user = this.props.user;
-        return loggedInUser.follows.find(follow => follow.user.id === user.id) !== -1;
+        return loggedInUser.followings.find(following => following.id === user.id) !== undefined;
     }
     renderFollowButton() {
         switch(this.props.loggedIn) {

@@ -10,8 +10,9 @@ export default class UserRegistrationComponent extends React.Component {
     }
 
     render(){
-        if (this.props.registered)
+        if (this.props.registered) {
             return <Redirect to="/login" />;
+        }
         console.log(this.props);
         return (
             <div>
@@ -118,12 +119,9 @@ export default class UserRegistrationComponent extends React.Component {
                             Sign Up
                         </button>
                         <div class="row">
-                        <div class="col-6">
-                            <Link to="/login">Login</Link>
-                        </div>
-                        <div class="col-6">
-                            <a href="#" class="float-right">Cancel</a>
-                        </div>
+                            <div class="col-6">
+                                <Link to="/login">Login</Link>
+                            </div>
                         </div>
                     </div>
                 </div>

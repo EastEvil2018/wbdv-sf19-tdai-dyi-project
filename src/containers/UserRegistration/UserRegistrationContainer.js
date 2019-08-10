@@ -1,6 +1,9 @@
 import UserRegistrationComponent from "../../components/UserRegistration/UserRegistrationComponent";
 import { connect } from 'react-redux';
 import UserServiceClient from "../../services/user/UserService";
+import { history } from "../../helper/history";
+import { withRouter } from "react-router";
+
 
 const stateToPropsMapper = state => ({
     ...state.UserRegistrationReducer
@@ -22,11 +25,11 @@ const propsToDispatcher = dispatch => ({
             response => {
                 console.log("Register");
                 console.log(response);
+                history.push('/login'); 
                 dispatch({
                     "type": "REGISTER"
-                });                
-            }
-        );
+                })
+            });
 
     },
     uploadImage: (imageInfo) => {
@@ -38,8 +41,8 @@ const propsToDispatcher = dispatch => ({
 });
 
 const UserRegistrationContainer 
-    = connect(
+    = withRouter(connect(
         stateToPropsMapper,
-        propsToDispatcher)(UserRegistrationComponent);
+        propsToDispatcher)(UserRegistrationComponent));
 
 export default UserRegistrationContainer;

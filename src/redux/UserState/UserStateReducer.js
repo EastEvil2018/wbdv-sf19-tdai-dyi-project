@@ -22,7 +22,19 @@ const UserStateReducer = (
         case "UPDATE_LOGGED_IN_USER":
             return {...state, loggedInUser: action.user, loggedIn: true}
         case "LOG_OUT":
-            return {...state, loggedInUser: {id: "", role: ""}, loggedIn: false}
+            return {...state, 
+                    loggedInUser: { id: "",
+                                    role: "",
+                                    username: "",
+                                    intro: "",
+                                    profileImageBase64: "",
+                                    comments: [],
+                                    likes: [],
+                                    follows: [],
+                                    followers: [],
+                                    playlists: []
+                                }, 
+                    loggedIn: false}
         default:
             return state;
     }

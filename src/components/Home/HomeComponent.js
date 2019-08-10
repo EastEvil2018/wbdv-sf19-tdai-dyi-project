@@ -15,7 +15,7 @@ export default class HomeComponent extends React.Component {
                 return (                
                         <div className="container mt-2"
                             hidden={this.props.loggedIn ? false : true}>
-                            <PlayListList playlist={this.props.loggedInUser.playlist}
+                            <PlayListList playlists={this.props.loggedInUser.playlists}
                                         userId={this.props.loggedInUser.id}
                                         hasCreateAccess={this.props.loggedIn}
                                         newPlayList={this.props.newPlayList}
