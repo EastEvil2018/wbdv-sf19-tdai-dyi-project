@@ -1,8 +1,7 @@
 import { WebUtils } from '../../utils/WebUtils';
 import users from '../../data/user/Users.json';
 import User from '../../models/UserLogin/User';
-
-const URL = /*"https://wbdv-sf19-project-java-server.herokuapp.com/"*/ 'http://localhost:8080'
+import URL from '../../constants/constant';
 
 export default class UserServiceClient {
     static myInstance = null;

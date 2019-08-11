@@ -1,5 +1,5 @@
 import { WebUtils } from "../../utils/WebUtils";
-const URL = /*"https://wbdv-sf19-project-java-server.herokuapp.com/"*/ 'http://localhost:8080'
+import URL from '../../constants/constant';
 
 export class SpotifyServiceClient {
     static instance = null;
