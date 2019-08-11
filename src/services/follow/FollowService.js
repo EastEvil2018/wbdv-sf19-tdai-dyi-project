@@ -1,4 +1,4 @@
-const URL = /*"https://wbdv-sf19-project-java-server.herokuapp.com/"*/ 'http://localhost:8080'
+import URL from '../../constants/constant';
 
 export default class FollowServiceClient {
     static instance = null;
@@ -14,7 +14,8 @@ export default class FollowServiceClient {
 
     follow(followerId, followeeId) {
         return fetch(URL + "/api/users/" + followerId + "/follow/users/" + followeeId, {
-            method: "POST"
+            method: "POST",
+            credentials: "include"
         }).then(response => {
             return response.json();
         })
@@ -22,7 +23,8 @@ export default class FollowServiceClient {
 
     unfollow(followerId, followeeId) {
         return fetch(URL + "/api/users/" + followerId + "/unfollow/users/" + followeeId, {
-            method: "DELETE"
+            method: "DELETE",
+            credentials: "include"
         }).then(response => {
             return response.json();
         })       

@@ -1,4 +1,4 @@
-const URL = /*"https://wbdv-sf19-project-java-server.herokuapp.com/"*/ 'http://localhost:8080'
+import URL from '../../constants/constant';
 
 export default class CommentServiceClient {
     static instance = null;

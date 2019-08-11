@@ -18,6 +18,7 @@ export default class HomeComponent extends React.Component {
                             <PlayListList playlists={this.props.loggedInUser.playlists}
                                         userId={this.props.loggedInUser.id}
                                         hasCreateAccess={this.props.loggedIn}
+                                        hasDeleteAccess={this.props.loggedIn}
                                         newPlayList={this.props.newPlayList}
                                         createPlayList={this.props.createPlayList} 
                                         newPlayListNameChanged={this.props.newPlayListNameChanged}/>

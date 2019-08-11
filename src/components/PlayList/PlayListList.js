@@ -2,6 +2,7 @@ import React from 'react';
 const PlayListList = ({playlists, 
                        userId, 
                        hasCreateAccess, 
+                       hasDeleteAccess,
                        newPlayList, 
                        createPlayList, 
                        newPlayListNameChanged}) => {
@@ -17,10 +18,21 @@ const PlayListList = ({playlists,
                     {playlists && playlists.map(list => {
                         return (
                             <li class="list-group-item">
-                                <a href={"/playlist/" + list.id}
-                                   target="_blank">
-                                    {list.name}
-                                </a>
+                                <div class="row">
+                                    <div class="col">
+                                        <a href={"/playlist/" + list.id}
+                                        target="_blank">
+                                            {list.name}
+                                        </a>
+                                    </div>
+                                    <div class="col text-right"
+                                         hidden={hasDeleteAccess ? false : true}>
+                                        <button type="button" 
+                                                class="btn btn-primary mr-auto">
+                                            Delete
+                                        </button>
+                                    </div>
+                                </div>
                             </li>  
                         );
                     })}
@@ -32,7 +44,7 @@ const PlayListList = ({playlists,
                                        value={newPlayList.name}
                                        onChange={(event) => newPlayListNameChanged(event.target.value)}/>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-4 text-right">
                                 <button type="button" 
                                         class="btn btn-primary ml-auto"
                                         onClick={(event) => createPlayList(userId, newPlayList)}>

@@ -126,6 +126,7 @@ export default class ProfileComponent extends React.Component {
                                       hasCreateAccess={this.props.loggedIn && this.props.loggedInUser.id === this.props.user.id}
                                       newPlayList={this.props.newPlayList}
                                       createPlayList={this.props.createPlayList} 
+                                      hasDeleteAccess={this.props.loggedIn && this.props.loggedInUser.id === this.props.user.id}
                                       newPlayListNameChanged={this.props.newPlayListNameChanged}/>}/>
                 <Route path="/profile/:uid/settings"
                        exact={true}
