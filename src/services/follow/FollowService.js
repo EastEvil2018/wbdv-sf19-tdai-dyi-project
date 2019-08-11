@@ -14,8 +14,7 @@ export default class FollowServiceClient {
 
     follow(followerId, followeeId) {
         return fetch(URL + "/api/users/" + followerId + "/follow/users/" + followeeId, {
-            method: "POST",
-            credentials: "include"
+            method: "POST"
         }).then(response => {
             return response.json();
         })
@@ -23,8 +22,7 @@ export default class FollowServiceClient {
 
     unfollow(followerId, followeeId) {
         return fetch(URL + "/api/users/" + followerId + "/unfollow/users/" + followeeId, {
-            method: "DELETE",
-            credentials: "include"
+            method: "DELETE"
         }).then(response => {
             return response.json();
         })       
