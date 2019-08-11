@@ -66,7 +66,7 @@ export default class ProfileComponent extends React.Component {
                         <div class="row no-gutters">
                             <div class="col-sm-4 col-md-4 col-lg-2 card border-0 p-3">
                                 <img className="card-img-top rounded-circle"
-                                    src={this.props.user.profilePhoto/*require('../../images/avatar5.png')*/}/> 
+                                    src={`${this.props.user.profilePhoto}`/*require('../../images/avatar5.png')*/}/> 
                             </div>
                             <div class="col-sm-8 col-md-8 col-lg-10 card border-0">
                                 <div class="card-body">
@@ -90,7 +90,7 @@ export default class ProfileComponent extends React.Component {
                                             <div class="col-2">
                                                 <Link class="card-link" to={"/profile/" + this.props.user.id + "/playlist"}>PlayList</Link>
                                             </div>
-                                            <div class="col-2" hidden={this.props.loggedIn ? false : true}>
+                                            <div class="col-2" hidden={this.props.loggedIn && this.props.loggedInUser.id === this.props.user.id ? false : true}>
                                                 <Link class="card-link" to={"/profile/" + this.props.user.id + "/settings"}>Settings</Link>
                                             </div>
                                         </div>
@@ -102,21 +102,22 @@ export default class ProfileComponent extends React.Component {
                 </div>
                 <Route path="/profile/:uid/follows"
                         exact={true}
-                        render={() => <FollowList follows={this.props.user.follows}/>}/>   
+                        render={() => <FollowList follows={this.props.user.followings}/>}/>   
                 <Route path="/profile/:uid/followers"
                        exact={true}
                        render={() => <FollowerList followers={this.props.user.followers}/>}/>
                 <Route path="/profile/:uid/comments"
                        exact={true}
                        render={() => 
-                        <CommentList comments={this.props.user.comments}
+                        <CommentList loggedInUser={this.props.loggedInUser}
+                                     comments={this.props.user.comments}
                                      showProductName={true}
                                      showCommenterName={false}
-                                     adminMode={this.props.loggedIn && this.props.loggedInUser.role === "admin"}
+                                     adminMode={this.props.loggedIn && (this.props.loggedInUser.role === "ADMIN" || this.props.loggedInUser.id === this.props.user.id)}
                                      deleteComment={this.props.deleteComment}/>}/>
                 <Route path="/profile/:uid/likes"
                        exact={true}
-                       render={() => <LikeList likes={this.props.user.likes}/>}/>
+                       render={() => <LikeList likes={this.props.user.favorites} showProfile={false}/>}/>
                 <Route path="/profile/:uid/playlist"
                        exact={true}
                        render={() => 
@@ -128,7 +129,7 @@ export default class ProfileComponent extends React.Component {
                                       newPlayListNameChanged={this.props.newPlayListNameChanged}/>}/>
                 <Route path="/profile/:uid/settings"
                        exact={true}
-                       render={(event) => 
+                       render={() => 
                        <SettingForm settingForm={this.props.settingForm} 
                                     settingFormChanged={this.props.settingFormChanged} 
                                     uploadImage={this.props.uploadImage} 

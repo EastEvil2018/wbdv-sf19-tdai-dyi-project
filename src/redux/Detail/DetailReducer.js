@@ -27,6 +27,8 @@ const DetailReducer = (
             return {...state, selectedPlayListId: action.selectedPlayListId}
         case "COMMENT_CONTENT_CHANGED":
             return {...state, newCommentContent: action.commentContent}
+        case "FIND_ALL_ALBUMS_FOR_ARTIST":
+            return {...state, product: {...state.product, albums: action.albums}}
         default:
             console.log(state);
             return {...state};

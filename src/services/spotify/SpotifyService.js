@@ -69,4 +69,19 @@ export class SpotifyServiceClient {
             }
         );
     }
+
+    getAlbumsForArtist(id, accessToken) {
+        const endpoint 
+            = "https://api.spotify.com/v1/artists/" + id + '/albums';
+        return fetch(endpoint, {
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer " + accessToken
+            }
+        }).then(
+            response => {
+                return response.json();
+            }
+        );
+    }
 }

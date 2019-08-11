@@ -9,11 +9,15 @@ const stateToPropsMapper = state => ({
 
 const propsToDispatcher = dispatch => ({
     getPlayListById: (id) => {
-        var playlist = PlayListServiceClient.getInstance().getPlayListById(id);
-        dispatch({
-            type: "GET_PLAYLIST_BY_ID",
-            playlist: playlist
-        });
+        PlayListServiceClient.getInstance().getPlayListById(id).then(
+            playlist => {
+                console.log(playlist);
+                dispatch({
+                    type: "GET_PLAYLIST_BY_ID",
+                    playlist: playlist
+                });
+            }
+        )
     }
 })
 

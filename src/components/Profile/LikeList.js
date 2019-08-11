@@ -1,14 +1,15 @@
 import React from 'react';
 import LikeCard from './LikeCard';
 
-export const LikeList = ({likes}) => {
+export const LikeList = ({likes, showProfile}) => {
+    console.log("RENDER LIKELIST : ", likes);
     return (
         <div class="card mt-2">
             <div class="card-header">
                 Likes
             </div>
             <div class="card-body row">
-                <div class="col-sm-6
+                {/* <div class="col-sm-6
                         col-md-4 
                         col-lg-4 
                         p-sm-1
@@ -31,9 +32,9 @@ export const LikeList = ({likes}) => {
                             <p className="card-text text-center">Course Text</p>
                         </div>                   
                     </div>
-                </div>
+                </div> */}
                 {likes && likes.map(like => {
-                    return <LikeCard like={like}/>
+                    return <LikeCard like={like} showProfile={showProfile}/>
                 })}
             </div>
         </div>

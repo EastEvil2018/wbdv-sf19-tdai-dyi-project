@@ -7,6 +7,7 @@ import LikeServiceClient from '../../services/like/LikeService';
 import UserServiceClient from '../../services/user/UserService';
 import PlayListServiceClient from '../../services/playlist/PlayListService';
 import CommentServiceClient from '../../services/comment/CommentService';
+import { continueStatement } from '@babel/types';
 
 const stateToPropsMapper = state => ({
     ...state.DetailReducer,
@@ -19,51 +20,102 @@ const propsToDispatcher = dispatch => ({
             token => {
                 const accessToken = token['access_token'];
                 SpotifyServiceClient.getInstance().searchDetails(id, accessToken, SpotifyKey[searchType]).then(
-                    response => {
-                        console.log(response);
-                        const comments 
-                            = CommentServiceClient.getInstance().findAllCommentsByProductId(response.id, response.type);
-                        const likes
-                            = LikeServiceClient.getInstance().findAllLikesByProductId(response.id, response.type);
-                        dispatch({
-                            type: "INIT_STATE",
-                            searchType: searchType,
-                            id: id,
-                            product: response,
-                            comments: comments,
-                            likes: likes
-                        })
+                    product => {
+                        // console.log(product.id, "/", product.type);
+                        // if (searchType !== "artist") {
+                        //     product.artists = product.artists.map(artist => {
+                        //         SpotifyServiceClient.getInstance().searchDetails(artist.id, accessToken, SpotifyKey[artist.type]).then(
+                        //             artistDetail => {
+                        //                 artist = artistDetail;
+                        //                 return artist;
+                        //             }
+                        //         )
+                        //     });
+                        // }
+                        CommentServiceClient.getInstance().findAllCommentsForProduct(product.id, product.type).then(
+                            comments => {
+                                console.log(comments);
+                                LikeServiceClient.getInstance().findAllLikesForProduct(product.id, product.type).then(
+                                    likes => {
+                                        console.log(likes);
+                                        dispatch({
+                                            type: "INIT_STATE",
+                                            searchType: searchType,
+                                            id: id,
+                                            product: product,
+                                            comments: comments,
+                                            likes: likes
+                                        })
+                                    }
+                                )                             
+                            }
+                        );
                     }
                 );
         });        
     },
-    like: (user, product) => {
-        LikeServiceClient.getInstance().like(user, product);
-        user = UserServiceClient.getInstance().getUserById(user.id);
-        const likes
-            = LikeServiceClient.getInstance().findAllLikesByProductId(product.id, product.type); 
-        dispatch({
-            type: "UPDATE_PRODUCT_LIKES",
-            likes: likes
-        });
-        dispatch({
-            type: "UPDATE_LOGGED_IN_USER",
-            user: user
-        });
+    findAlbumsForArtist: (id) => {
+        SpotifyServiceClient.getInstance().getAccessToken().then(
+            token => {
+                const accessToken = token['access_token'];
+                SpotifyServiceClient.getInstance().getAlbumsForArtist(id, accessToken).then(
+                    albums => {
+                        dispatch({
+                            type: "FIND_ALL_ALBUMS_FOR_ARTIST",
+                            albums: albums
+                        });
+                    }
+                );
+            }
+        );        
+    },
+    postLike: (user, product) => {
+        LikeServiceClient.getInstance().like(user, product).then(
+            response => {
+                UserServiceClient.getInstance().getUserById(user.id).then(
+                    user => {
+                        LikeServiceClient.getInstance().findAllLikesForProduct(product.id, product.type).then(
+                            likes => {
+                                console.log(likes);
+                                dispatch({
+                                    type: "UPDATE_PRODUCT_LIKES",
+                                    likes: likes
+                                });
+                                dispatch({
+                                    type: "UPDATE_LOGGED_IN_USER",
+                                    user: user
+                                });                                
+                            }
+                        );
+                    }
+                );
+
+            }
+        );
     } ,
-    unLike: (user, product) => {
-        LikeServiceClient.getInstance().unLike(user, product);
-        user = UserServiceClient.getInstance().getUserById(user.id);
-        const likes
-            = LikeServiceClient.getInstance().findAllLikesByProductId(product.id, product.type); 
-        dispatch({
-            type: "UPDATE_PRODUCT_LIKES",
-            likes: likes
-        },
-        {
-            type: "UPDATE_LOGGED_IN_USER",
-            user: user
-        })
+    postUnlike: (user, product) => {
+        LikeServiceClient.getInstance().unLike(user, product).then(
+            response => {
+                UserServiceClient.getInstance().getUserById(user.id).then(
+                    user => {
+                        LikeServiceClient.getInstance().findAllLikesForProduct(product.id, product.type).then(
+                            likes => {
+                                console.log(likes);
+                                dispatch({
+                                    type: "UPDATE_PRODUCT_LIKES",
+                                    likes: likes
+                                });
+                                dispatch({
+                                    type: "UPDATE_LOGGED_IN_USER",
+                                    user: user
+                                });                                
+                            }
+                        );
+                    }
+                );
+
+            }
+        );
     },
     addToPlayList: (user, product, playListId) => {
         if (playListId === "")
@@ -88,41 +140,57 @@ const propsToDispatcher = dispatch => ({
         })
     },
     commentContentChanged: (commentContent) => {
+        console.log('COMMENT CONTENT CHANGED : ', commentContent)
         dispatch({
             type: "COMMENT_CONTENT_CHANGED",
             commentContent: commentContent
         });
     },
     postComment: (user, product, commentContent) => {
-        CommentServiceClient.getInstance().postComment(user, product, commentContent);
-        user = UserServiceClient.getInstance().getUserById(user.id);
-        const comments
-            = CommentServiceClient.getInstance().findAllCommentsByProductId(product.id, product.type); 
-        dispatch({
-            type: "UPDATE_PRODUCT_COMMENTS",
-            likes: comments
-        },
-        {
-            type: "UPDATE_LOGGED_IN_USER",
-            user: user
-        })      
+        CommentServiceClient.getInstance().postComment(user, product, commentContent).then(
+            response => {
+                UserServiceClient.getInstance().getUserById(user.id).then(
+                    user => {
+                        CommentServiceClient.getInstance().findAllCommentsForProduct(product.id, product.type).then(
+                            comments => {
+                                dispatch({
+                                    type: "UPDATE_PRODUCT_COMMENTS",
+                                    comments: comments
+                                });
+                                dispatch({
+                                    type: "UPDATE_LOGGED_IN_USER",
+                                    user: user
+                                })                                 
+                            }
+                    )}
+                )
+            }
+        );    
     },
-    deleteComment: (commentId) => {
-        const comment = CommentServiceClient.findCommentById(commentId);
-        const commenterId = comment.commenter.id;
-        const productId = comment.product.id;
-        const commenter = UserServiceClient.findUserById(commenterId);
-        CommentServiceClient.deleteCommentById(commentId);
-        const user = UserServiceClient.getInstance().getUserById(commenterId);
-        const comments = CommentServiceClient.findAllCommentsByProductId(productId, comment.product.type);
-        dispatch({
-            type: "UPDATE_LOGGED_IN_USER",
-            user: user
-        },
-        {
-            type: "UPDATE_PRODUCT_COMMENTS",
-            likes: comments            
-        })           
+    deleteComment: (loggedInUser, comment) => {
+        CommentServiceClient.getInstance().deleteCommentById(comment.id).then(
+            response => {
+                UserServiceClient.getInstance().getUserById(comment.userId).then(
+                    user => {
+                        CommentServiceClient.getInstance().
+                        findAllCommentsForProduct(comment.productId, comment.productType).then(
+                            comments => {
+                                if (user.id === loggedInUser.id) {
+                                    dispatch({
+                                        type: "UPDATE_LOGGED_IN_USER",
+                                        user: user
+                                    });
+                                }
+                                dispatch({
+                                    type: "UPDATE_PRODUCT_COMMENTS",
+                                    comments: comments            
+                                }); 
+                            }
+                        )
+                    }
+                ); 
+            }
+        );    
     }
 })
 

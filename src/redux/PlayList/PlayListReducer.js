@@ -2,9 +2,6 @@
 const PlayListReducer = (
     state = {
         playlist: {
-            id: "",
-            name: "",
-            list: []
         }
     }, action
 ) => {

@@ -2,11 +2,12 @@ import React from 'react';
 import FileBase64 from 'react-file-base64';
 
 export const SettingForm = ({settingForm, settingFormChanged, uploadImage, updateUser, show}) => {
+    console.log("RENDER SETTING FORM : ", settingForm, show);
     return (
         <div class="container" hidden={show ? false : true}>
             <div class="form-group row">
                 <img className="card-img-top rounded-circle mx-auto"
-                    src={require('../../images/avatar5.png')}
+                    src={`${settingForm.profilePhoto}`}
                     style={{width: "6rem", height: "6rem"}}/>
             </div>
             <div class="form-group row">

@@ -12,11 +12,14 @@ const stateToPropsMapper = state => ({
 
 const propsToDispatcher = dispatch => ({
     getRecentComments: () => {
-        const comments = CommentServiceClient.getInstance().getRecentComments();
-        dispatch({
-            type: "GET_RECENT_COMMENTS",
-            comments: comments
-        });
+        CommentServiceClient.getInstance().getRecentComments().then(
+            comments => {
+                dispatch({
+                    type: "GET_RECENT_COMMENTS",
+                    comments: comments
+                });
+            }
+        );
     },
     newPlayListNameChanged: (name) => {
         dispatch({
@@ -25,20 +28,41 @@ const propsToDispatcher = dispatch => ({
         });
     },
     createPlayList: (userId, playList) => {
-        PlayListServiceClient.getInstance().createPlayList(userId, playList);
-        const user = UserServiceClient.getInstance().getUserById(userId);
-        dispatch({
-            type: "UPDATE_LOGGED_IN_USER",
-            user: user
-        });
+        PlayListServiceClient.getInstance().createPlayList(userId, playList).then(
+            response => {
+                UserServiceClient.getInstance().getUserById(userId).then(
+                    response => {
+                        dispatch({
+                            type: "UPDATE_LOGGED_IN_USER",
+                            user: response
+                        });
+                })                
+            }
+        );
     },
-    deleteComment: (id) => {
-        CommentServiceClient.deleteComment(id);
-        const comments = CommentServiceClient.getInstance().getRecentComments();
-        dispatch({
-            type: "GET_RECENT_COMMENTS",
-            comments: comments
-        });
+    deleteComment: (loggedInUser, comment) => {
+        CommentServiceClient.getInstance().deleteCommentById(comment.id).then(
+            response => {
+                UserServiceClient.getInstance().getUserById(comment.userId).then(
+                    user => {
+                        CommentServiceClient.getInstance().getRecentComments().then(
+                            comments => {
+                                dispatch({
+                                    type: "UPDATE_RECENT_COMMENTS",
+                                    comments: comments
+                                });
+                                if (user.id === loggedInUser.id) {
+                                    dispatch({
+                                        type: "UPDATE_LOGGED_IN_USER",
+                                        user: user
+                                    });
+                                }
+                            }
+                        );
+                    }
+                ); 
+            }
+        );    
     }
 })
 

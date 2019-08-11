@@ -1,6 +1,7 @@
 import React from 'react';
 
-export const LikeCard = ({like}) => {
+export const LikeCard = ({like, showProfile}) => {
+    console.log("Render LikeCard : ", like);
     return (
         <div class="col-sm-6
                     col-md-4 
@@ -15,15 +16,15 @@ export const LikeCard = ({like}) => {
                         p-lg-5
                         p-0
                         border-0">
-                <a href={"/details/" + like.product.type + "/" + like.product.id}
+                <a href={showProfile ? "/profile/" + like.userId : "/details/" + like.productType + "/" + like.productId}
                    target="_blank">
                     <img className="d-block card-img-top rounded-circle mx-auto"
-                    src={require('../../images/snoop-dogg.jpg')}
+                    src={showProfile ? require('../../images/default-user-profile.png') : require('../../images/default-singer-profile.png')}
                     style={{width: "5rem", height: "5rem"}}/>
                 </a>
                 <div className="card-body">
                     <p className="card-text text-center">
-                        {like.product.name}
+                        {showProfile ? like.username : like.productName}
                     </p>
                 </div>                   
             </div>

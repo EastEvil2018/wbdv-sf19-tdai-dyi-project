@@ -32,10 +32,11 @@ export default class HomeComponent extends React.Component {
     render(){
         return (
             <div class="container">
-               <CommentList comments={this.props.comments}
+               <CommentList loggedInUser={this.props.loggedInUser}
+                            comments={this.props.comments}
                             showProductName={true}
                             showCommenterName={true}
-                            adminMode={this.props.loggedIn && this.props.loggedInUser.role === "admin"}
+                            adminMode={this.props.loggedIn && this.props.loggedInUser.role === "ADMIN"}
                             deleteComment={this.props.deleteComment}/>
                 {this.renderPlayListList()}
             </div>

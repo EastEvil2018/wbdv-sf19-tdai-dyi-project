@@ -9,6 +9,7 @@ export default class PlayListComponent extends React.Component {
         this.props.getPlayListById(listId);
     }
     render() {
+        console.log("RENER PLAY LIST COMPONENT : ,", this.props)
         return (
             <div class="card">
                 <div class="card-header">
@@ -16,13 +17,13 @@ export default class PlayListComponent extends React.Component {
                 </div>
                 <div class="card-body">
                     <ul class="list-group">
-                        <li class="list-group-item">
+                        {/* <li class="list-group-item">
                             <a href={"/details/track/" + "7JezmrZAhbArL0o9Qwa369"}
                                 target="_blank">
                                 Cras justo odio
                             </a>
-                        </li>
-                        {this.props.playlist.list.map(track => {
+                        </li> */}
+                        {this.props.playlist.tracks && this.props.playlist.tracks.map(track => {
                             return (
                                 <li class="list-group-item">
                                     <a href={"/details/track/" + track.id}

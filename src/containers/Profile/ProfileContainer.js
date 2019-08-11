@@ -4,6 +4,7 @@ import UserServiceClient from '../../services/user/UserService';
 import CommentServiceClient from '../../services/comment/CommentService';
 import FollowServiceClient from '../../services/follow/FollowService';
 import PlayListServiceClient from '../../services/playlist/PlayListService';
+import LikeServiceClient from '../../services/like/LikeService';
 
 
 const stateToPropsMapper = state => ({
@@ -24,24 +25,56 @@ const propsToDispatcher = dispatch => ({
         );
 
     },
+    findAllLikesForUser: (userId) => {
+        return LikeServiceClient.getInstance().findAllLikesForUser(userId).then(
+            likes => {
+                return likes;
+            }
+        );
+    },
     follow: (userId, profileId) => {
-        FollowServiceClient.follow(userId, profileId);
-        dispatch({
-            type: "FOLLOW"
-        });
+        FollowServiceClient.getInstance().follow(userId, profileId).then(
+            response => {
+                UserServiceClient.getInstance().getUserById(userId).then(
+                    loggedInUser => {
+                        UserServiceClient.getInstance().getUserById(profileId).then(
+                            profileUser => {
+                                dispatch({
+                                    type: "UPDATE_LOGGED_IN_USER",
+                                    user: loggedInUser
+                                });
+                                dispatch({
+                                    type: "UPDATE_PROFILE_USER",
+                                    user: profileUser
+                                });
+                            }
+                        )
+                    }
+                );
+            }
+        );
     },
     unfollow: (userId, profileId) => {
-        FollowServiceClient.unfollow(userId, profileId);
-        const loggedInUser = UserServiceClient.getInstance().findUserById(userId);
-        const user = UserServiceClient.getInstance().findUserById(profileId);
-        dispatch({
-            type: "UPDATE_LOGGED_IN_USER",
-            user: loggedInUser
-        },
-        {
-            type: "UPDATE_PROFILE_USER",
-            user: user
-        });
+        FollowServiceClient.getInstance().unfollow(userId, profileId).then(
+            response => {
+                UserServiceClient.getInstance().getUserById(userId).then(
+                    loggedInUser => {
+                        UserServiceClient.getInstance().getUserById(profileId).then(
+                            profileUser => {
+                                dispatch({
+                                    type: "UPDATE_LOGGED_IN_USER",
+                                    user: loggedInUser
+                                });
+                                dispatch({
+                                    type: "UPDATE_PROFILE_USER",
+                                    user: profileUser
+                                });
+                            }
+                        )
+                    }
+                );
+            }
+        );
     },
     newPlayListNameChanged: (name) => {
         dispatch({
@@ -65,29 +98,41 @@ const propsToDispatcher = dispatch => ({
                 })                
             }
         );
-
-
     },
-    deleteComment: (id) => {
-        var comment = CommentServiceClient.findCommentById(id);
-        var commenterId = comment.commenter.id;
-        CommentServiceClient.deleteCommentById(id);
-        const user = UserServiceClient.getInstance().getUserById(commenterId);
-        dispatch({
-            type: "UPDATE_PROFILE_USER",
-            user: user
-        });        
+    deleteComment: (loggedInUser, comment) => {
+        CommentServiceClient.getInstance().deleteCommentById(comment.id).then(
+            response => {
+                UserServiceClient.getInstance().getUserById(comment.userId).then(
+                    user => {
+                        if (user.id === loggedInUser.id) {
+                            dispatch({
+                                type: "UPDATE_LOGGED_IN_USER",
+                                user: user
+                            });
+                        }
+                        dispatch({
+                            type: "UPDATE_PROFILE_USER",
+                            user: user            
+                        }); 
+                    }
+                ); 
+            }
+        );         
     },
     updateUser: (user) => {
-        const updatedUser = UserServiceClient.getInstance().updateUser(user);
-        dispatch({
-            type: "UPDATE_LOGGED_IN_USER",
-            user: updatedUser
-        },
-        {
-            type: "UPDATE_PROFILE_USER",
-            user: updatedUser
-        })
+        UserServiceClient.getInstance().updateUser(user).then(
+            updatedUser => {
+                console.log("UPDATED USER : ", updatedUser);
+                dispatch({
+                    type: "UPDATE_LOGGED_IN_USER",
+                    user: updatedUser
+                });
+                dispatch({
+                    type: "UPDATE_PROFILE_USER",
+                    user: updatedUser
+                });
+            }
+        );
     },
     settingFormChanged: (settingForm) => {
         dispatch({
@@ -96,6 +141,7 @@ const propsToDispatcher = dispatch => ({
         })
     },
     uploadImage: (imageInfo) => {
+        console.log("SETTING_FORM_IMAGE_UPLOAD : ", imageInfo);
         dispatch({
             "type": "SETTING_FORM_IMAGE_UPLOAD",
             base64Image: imageInfo.base64

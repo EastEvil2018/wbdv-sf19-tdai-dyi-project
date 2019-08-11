@@ -1,14 +1,15 @@
 import React from 'react';
 import CommentCard from './CommentCard';
 
-export const CommentList = ({comments, showProductName, showCommenterName, adminMode, deleteComment}) => {
+export const CommentList = ({loggedInUser, comments, showProductName, showCommenterName, adminMode, deleteComment}) => {
+    console.log("Render CommentList : ", comments);
     return (
         <div class="card mt-2">
             <div class="card-header">
                 Comments
             </div>
             <ul className="w-100 p-0">
-                <ol className="px-1 py-2">
+                {/* <ol className="px-1 py-2">
                     <div class="card w-100">
                         <div class="card-body">
                             <h5 class="card-title" 
@@ -35,11 +36,12 @@ export const CommentList = ({comments, showProductName, showCommenterName, admin
                             </button>
                         </div>
                     </div>
-                </ol>
+                </ol> */}
                 {comments && comments.map(comment => {
                     return (
                         <ol className="px-1 py-2">
-                            <CommentCard comment={comment}
+                            <CommentCard loggedInUser={loggedInUser}
+                                         comment={comment}
                                          showCommenterName={showCommenterName} 
                                          showProductName={showProductName}
                                          adminMode={adminMode}

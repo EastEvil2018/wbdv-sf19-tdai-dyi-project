@@ -16,24 +16,51 @@ export default class DetailComponent extends React.Component {
     }
 
     render() {
+        if (this.props.product.type === "artist" && this.props.product.albums === undefined) {
+            this.props.findAlbumsForArtist(this.props.product.id);
+            return ("");
+        }
+        console.log("RENDER DETAIL : ", this.props);
         switch(this.props.product.type) {
             case SpotifyType.TRACK:
                 return <TrackCard track={this.props.product}
                                   loggedIn={this.props.loggedIn}
                                   loggedInUser={this.props.loggedInUser} 
-                                  like={this.props.postLike}
-                                  unLike={this.props.postUnlike} 
+                                  likes={this.props.likes}
+                                  comments={this.props.comments}
+                                  postLike={this.props.postLike}
+                                  postUnlike={this.props.postUnlike} 
                                   addToPlayList={this.props.addToPlayList}
                                   selectedPlayListChanged={this.props.selectedPlayListChanged}
                                   selectedPlayListId={this.props.selectedPlayListId}
-                                  commmentContent={this.props.newCommmentContent}
-                                  commentContentChanged={this.props.newCommentContentChanged}
-                                  postComment={this.props.postNewComment}
+                                  commmentContent={this.props.newCommentContent}
+                                  commentContentChanged={this.props.commentContentChanged}
+                                  postComment={this.props.postComment}
                                   deleteComment={this.props.deleteComment}/>
             case SpotifyType.ALBUM:
-                return <AlbumCard product={this.props.product}/>
+                return <AlbumCard   album={this.props.product}
+                                    loggedIn={this.props.loggedIn}
+                                    loggedInUser={this.props.loggedInUser} 
+                                    likes={this.props.likes}
+                                    comments={this.props.comments}
+                                    postLike={this.props.postLike}
+                                    postUnlike={this.props.postUnlike} 
+                                    commmentContent={this.props.newCommentContent}
+                                    commentContentChanged={this.props.commentContentChanged}
+                                    postComment={this.props.postComment}
+                                    deleteComment={this.props.deleteComment}/>
             case SpotifyType.ARTIST:
-                return <ArtistCard product={this.props.product}/>
+                return <ArtistCard  artist={this.props.product}
+                                    loggedIn={this.props.loggedIn}
+                                    loggedInUser={this.props.loggedInUser} 
+                                    likes={this.props.likes}
+                                    comments={this.props.comments}
+                                    postLike={this.props.postLike}
+                                    postUnlike={this.props.postUnlike} 
+                                    commmentContent={this.props.newCommentContent}
+                                    commentContentChanged={this.props.commentContentChanged}
+                                    postComment={this.props.postComment}
+                                    deleteComment={this.props.deleteComment}/>
             default:
                 return (<div>The product type is not support</div>);
         }

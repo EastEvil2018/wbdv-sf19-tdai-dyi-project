@@ -13,18 +13,11 @@ export default class PlayListServiceClient {
     }
 
     getPlayListById(id) {
-        var playlist = {
-            "id": "233",
-            "name": "Custom playlist",
-            "list": [
-                {
-                    "id": "322",
-                    "name": "Rap God"
-                }
-            ]
-        };
-
-        return playlist;
+        return fetch(URL + '/api/playlists/' + id, {
+			method: "GET"
+		}).then(response => {
+			return response.json();
+        })
     }
 
     createPlayList(userId, playlist) {
@@ -43,9 +36,15 @@ export default class PlayListServiceClient {
     }
 
     addToPlayList(user, product, playListId) {
+        console.log(product)
+        const body = {
+            id: product.id,
+            name: product.name
+        }
+        console.log("Add to playlist : ", body);
         return fetch(URL + "/api/playlists/" + playListId + "/add", {
-            method: "POST",
-            body: JSON.stringify(product),
+            method: "PUT",
+            body: JSON.stringify(body),
             headers: {
 				'content-type': 'application/json'
             }

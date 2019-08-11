@@ -9,15 +9,15 @@ export const FollowList = ({follows}) => {
                     Follows
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
+                    {/* <li class="list-group-item">
                         <a href="/profile/333"
                            target="_blank">Di Yi</a>
-                    </li>                    
+                    </li>                     */}
                     {follows && follows.map(follow => {
                         return (
                             <li class="list-group-item">
                                 <a href={"/profile/" + follow.id}
-                                   target="_blank">{follow.name}</a>
+                                   target="_blank">{follow.username}</a>
                             </li>                             
                         );
                     })}

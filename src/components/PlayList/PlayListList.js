@@ -6,7 +6,7 @@ const PlayListList = ({playlists,
                        createPlayList, 
                        newPlayListNameChanged}) => {
     console.log("Has create list access : ", hasCreateAccess);
-    console.log("Render playlists : ", playlists);
+    console.log("Render playlists : ", playlists, userId);
     return (
         <div class="row">
             <div class="card mb-3 w-100">

@@ -83,18 +83,26 @@ export default class UserServiceClient {
             return response.json();
         })
     }
+
     updateUser(user) {
-        return {
-            id: "1111",
-            role: "",
-            username: "east",
-            intro: "ssssss",
-            profileImageBase64: "",
-            comments: [],
-            likes: [],
-            follows: [],
-            followers: [],
-            playlist: []
-        };        
+        var body = {
+            username: user.username,
+            password: user.password,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            role: user.role,
+            profilePhoto: user.profilePhoto
+        }
+        console.log("Going to update user:", body);
+        return fetch(URL + '/api/users/' + user.id, {
+            method: "PUT",
+            credentials: "include",
+			body: JSON.stringify(body),
+			headers: {
+				'content-type': 'application/json'
+			}
+        }).then(response => {
+            return response.json();
+        })      
     }
 }

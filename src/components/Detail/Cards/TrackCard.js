@@ -1,16 +1,17 @@
 import React from 'react';
-import {Carousel, Dropdown} from 'react-bootstrap';
 import '../../../css/components/Detail/Carousels/ArtistCarousel.css';
 import LikeList from '../../Profile/LikeList';
 import CommentList from '../../Comment/CommentList';
+import ArtistCarousel from '../Carousels/ArtistCarousel';
+import AlbumCarousel from '../Carousels/AlbumCarousel';
 
 const TrackCard = ({track, 
                     loggedIn, 
                     loggedInUser, 
                     likes,
                     comments,
-                    like, 
-                    unLike, 
+                    postLike, 
+                    postUnlike, 
                     addToPlayList, 
                     selectedPlayListChanged,
                     selectedPlayListId,
@@ -18,6 +19,15 @@ const TrackCard = ({track,
                     commentContentChanged, 
                     postComment,
                     deleteComment}) => {
+    console.log("Render TrackCard : ", likes, loggedInUser, track, commmentContent);
+    const signal = loggedInUser.favorites && loggedInUser.favorites.find(like => 
+        like.productType === track.type && like.productId === track.id
+    )
+
+    const hasLiked = signal !== undefined;
+
+    console.log("Has Likes : ", hasLiked);
+
     return (
         <div>
             <div class="card">
@@ -33,7 +43,7 @@ const TrackCard = ({track,
                             {track.name}
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row my-2">
                         <div class="col-sm-2 text-center my-auto">
                             Artist
                         </div>
@@ -41,8 +51,50 @@ const TrackCard = ({track,
                             <ArtistCarousel artists={track.artists}/>
                         </div>                                       
                     </div>
+                    <div class="row my-2">
+                        <div class="col-sm-2 text-center my-auto">
+                            Ablum
+                        </div>
+                        <div class="col-sm-10 px-0 text-center">
+                            <AlbumCarousel albums={[track.album]}/>
+                        </div>    
+                    </div>
+                    <div class="row my-2">
+                        <div class="col-sm-2 text-center my-auto">
+                            Preview
+                        </div>
+                        <div class="col-sm-10 px-0 text-center">
+                            <iframe src={"https://open.spotify.com/embed/track/" + track.id}
+                                    width="300" 
+                                    height="80" 
+                                    frameborder="0" 
+                                    allowtransparency="true" 
+                                    allow="encrypted-media">
+                            </iframe>
+                        </div>    
+                    </div>
+                    <div class="row my-2">
+                        <div class="col-sm-2 text-center my-auto">
+                            Check on Spotify
+                        </div>
+                        <div class="col-sm-10 px-0 text-center">
+                            <a href={track.external_urls.spotify} 
+                                target="_blank">
+                                {track.external_urls.spotify}
+                            </a>
+                        </div>    
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2 text-center">
+                            Release Date
+                        </div>
+                        <div class="col-sm-10 text-center">
+                            {track.album.release_date}
+                        </div>
+                    </div>
                 </div>
-                <div class="card-footer">
+                <div class="card-footer"
+                     hidden={loggedIn ? false : true}>
                     <div class="input-group">
                         <select class="custom-select mr-2"
                                 onChange={(event) => selectedPlayListChanged(event.target.value)}>
@@ -53,24 +105,40 @@ const TrackCard = ({track,
                                 );
                             })}
                         </select>
-                        <div class="input-group-append">
+                        <div class="input-group-append mr-2">
                             <button class="btn btn-outline-secondary" 
                                     type="button"
                                     onClick={() => 
-                                        addToPlayList(loggedInUser.id, track.id, selectedPlayListId)}>
+                                        addToPlayList(loggedInUser, track, selectedPlayListId)}>
                                 Add To PlayList
+                            </button>
+                        </div>
+                        <div class="input-group-append">
+                            <button type="button" 
+                                    class="btn btn-primary"
+                                    hidden={hasLiked ? true : false}
+                                    onClick={(event) => postLike(loggedInUser, track)}>
+                                Like
+                            </button>
+                            <button type="button" 
+                                    class="btn btn-primary"
+                                    hidden={hasLiked ? false : true}
+                                    onClick={(event) => postUnlike(loggedInUser, track)}>
+                                UnLike
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
-            <LikeList likes={likes}/>
-            <CommentList comments={comments} 
+            <LikeList likes={likes} showProfile={true}/>
+            <CommentList loggedInUser={loggedInUser}
+                         comments={comments} 
                          showCommenterName={true} 
                          showProductName={false}
-                         adminMode={loggedIn && loggedInUser.role === "admin"}
+                         adminMode={loggedIn && loggedInUser.role === "ADMIN"}
                          deleteComment={deleteComment} />
-            <div class="card mt-2">
+            <div class="card mt-2"
+                 hidden={loggedIn ? false : true}>
                 <div class="card-header">
                     Write Comment
                 </div> 
@@ -93,45 +161,5 @@ const TrackCard = ({track,
 }
 
 
-const ArtistCarousel = ({artists}) => {
-    return (
-        <div class="w-100">
-        <Carousel indicators={false}>
-            <Carousel.Item>
-                <div class="row my-3">
-                    <img className="d-block rounded-circle mx-auto"
-                        src={require('../../../images/snoop-dogg.jpg')}
-                        alt="First slide"
-                        style={{width: "6rem", height: "6rem"}}/>
-                </div>
-                <div class="row my-3">
-                    <a class="text-center w-100" href="#">
-                        Snoopy Doggy
-                    </a>
-                </div>
-            </Carousel.Item>
-            {artists.map(artist => {
-                return (
-                    <Carousel.Item>
-                        <div class="row my-3">
-                            <img className="d-block rounded-circle mx-auto"
-                                src={require('../../../images/snoop-dogg.jpg')}
-                                alt="First slide"
-                                style={{width: "6rem", height: "6rem"}}/>
-                        </div>
-                        <div class="row my-3">
-                            <a class="text-center w-100" 
-                               href={"/details/artist/" + artist.id}
-                               target="_blank">
-                                {artist.name}
-                            </a>
-                        </div>
-                    </Carousel.Item>                    
-                );
-            })}
-        </Carousel>
-        </div>
-    );
-}
 
 export default TrackCard;
