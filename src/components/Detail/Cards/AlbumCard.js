@@ -5,6 +5,7 @@ import CommentList from '../../Comment/CommentList';
 import ArtistCarousel from '../Carousels/ArtistCarousel';
 import AlbumCarousel from '../Carousels/AlbumCarousel';
 import { SpotifyServiceClient } from '../../../services/spotify/SpotifyService';
+import TrackCarousel from '../Carousels/TrackCarousel';
 
 const AlbumCard = ({album, 
                     loggedIn, 
@@ -58,6 +59,22 @@ const AlbumCard = ({album,
                         <div class="col-sm-10 px-0 text-center">
                             <ArtistCarousel artists={album.artists}/>
                         </div>                                       
+                    </div>
+                    <div class="row my-2">
+                        <div class="col-sm-2 text-center my-auto">
+                            Tracks
+                        </div>
+                        <div class="col-sm-10 px-0 text-center">
+                            <TrackCarousel tracks={album.tracks.items}/>
+                        </div>                                       
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2 text-center">
+                            Release Date
+                        </div>
+                        <div class="col-sm-10 text-center">
+                            {album.release_date}
+                        </div>
                     </div>
                     <div class="row my-2">
                         <div class="col-sm-2 text-center my-auto">

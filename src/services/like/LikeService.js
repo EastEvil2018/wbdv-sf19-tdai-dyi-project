@@ -25,7 +25,8 @@ export default class LikeServiceClient {
         const body = {
             productId: product.id,
             productType: product.type,
-            productName: product.name
+            productName: product.name,
+            productImageUrl: product.productImageUrl
         }
         console.log("LIKE", body);
         return fetch(URL + "/api/users/" + user.id + "/favorites", {

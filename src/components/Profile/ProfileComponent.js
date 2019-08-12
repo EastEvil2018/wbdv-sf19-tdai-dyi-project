@@ -127,7 +127,8 @@ export default class ProfileComponent extends React.Component {
                                       newPlayList={this.props.newPlayList}
                                       createPlayList={this.props.createPlayList} 
                                       hasDeleteAccess={this.props.loggedIn && this.props.loggedInUser.id === this.props.user.id}
-                                      newPlayListNameChanged={this.props.newPlayListNameChanged}/>}/>
+                                      newPlayListNameChanged={this.props.newPlayListNameChanged}
+                                      deletePlayListById={this.props.deletePlayListById}/>}/>
                 <Route path="/profile/:uid/settings"
                        exact={true}
                        render={() => 
@@ -144,7 +145,9 @@ export default class ProfileComponent extends React.Component {
                                           hasCreateAccess={this.props.loggedIn && this.props.loggedInUser.id === this.props.user.id}
                                           newPlayList={this.props.newPlayList}
                                           createPlayList={this.props.createPlayList} 
-                                          newPlayListNameChanged={this.props.newPlayListNameChanged}/>}/>
+                                          hasDeleteAccess={this.props.loggedIn && this.props.loggedInUser.id === this.props.user.id}
+                                          newPlayListNameChanged={this.props.newPlayListNameChanged}
+                                          deletePlayListById={this.props.deletePlayListById}/>}/>
                 <Route path="/profile"
                         exact={true}
                         render={() => 
@@ -153,7 +156,9 @@ export default class ProfileComponent extends React.Component {
                                           hasCreateAccess={this.props.loggedIn && this.props.loggedInUser.id === this.props.user.id}
                                           newPlayList={this.props.newPlayList}
                                           createPlayList={this.props.createPlayList} 
-                                          newPlayListNameChanged={this.props.newPlayListNameChanged}/>}/>
+                                          hasDeleteAccess={this.props.loggedIn && this.props.loggedInUser.id === this.props.user.id}
+                                          newPlayListNameChanged={this.props.newPlayListNameChanged}
+                                          deletePlayListById={this.props.deletePlayListById}/>}/>
             </div>
         );
     }

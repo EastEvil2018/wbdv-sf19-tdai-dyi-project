@@ -19,7 +19,9 @@ export const LikeCard = ({like, showProfile}) => {
                 <a href={showProfile ? "/profile/" + like.userId : "/details/" + like.productType + "/" + like.productId}
                    target="_blank">
                     <img className="d-block card-img-top rounded-circle mx-auto"
-                    src={showProfile ? require('../../images/default-user-profile.png') : require('../../images/default-singer-profile.png')}
+                    src={showProfile ? 
+                            require('../../images/default-user-profile.png') : 
+                            like.productImageUrl ? `${like.productImageUrl}` : require('../../images/default-singer-profile.png')}
                     style={{width: "5rem", height: "5rem"}}/>
                 </a>
                 <div className="card-body">

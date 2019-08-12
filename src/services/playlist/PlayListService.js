@@ -11,6 +11,14 @@ export default class PlayListServiceClient {
         }
         return this.instance;
     }
+    
+    deletePlayListById(id) {
+        return fetch(URL + '/api/playlists/' + id, {
+			method: "DELETE"
+		}).then(response => {
+			return response.json();
+        })
+    }
 
     getPlayListById(id) {
         return fetch(URL + '/api/playlists/' + id, {

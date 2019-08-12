@@ -73,7 +73,7 @@ const TrackCard = ({track,
                             </iframe>
                         </div>    
                     </div>
-                    <div class="row my-2">
+                    {/* <div class="row my-2">
                         <div class="col-sm-2 text-center my-auto">
                             Check on Spotify
                         </div>
@@ -83,7 +83,7 @@ const TrackCard = ({track,
                                 {track.external_urls.spotify}
                             </a>
                         </div>    
-                    </div>
+                    </div> */}
                     <div class="row">
                         <div class="col-sm-2 text-center">
                             Release Date

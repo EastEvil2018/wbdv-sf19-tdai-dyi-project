@@ -146,6 +146,23 @@ const propsToDispatcher = dispatch => ({
             "type": "SETTING_FORM_IMAGE_UPLOAD",
             base64Image: imageInfo.base64
         });
+    },
+    deletePlayListById: (userId, list) => {
+        PlayListServiceClient.getInstance().deletePlayListById(list.id).then(
+            response => {
+                UserServiceClient.getInstance().getUserById(userId).then(
+                    response => {
+                        dispatch({
+                            type: "UPDATE_LOGGED_IN_USER",
+                            user: response
+                        });
+                        dispatch({
+                            type: "UPDATE_PROFILE_USER",
+                            user: response
+                        });
+                })                 
+            }
+        );
     }
 })
 

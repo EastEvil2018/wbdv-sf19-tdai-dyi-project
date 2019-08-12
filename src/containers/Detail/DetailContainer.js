@@ -70,6 +70,19 @@ const propsToDispatcher = dispatch => ({
         );        
     },
     postLike: (user, product) => {
+        switch(product.type) {
+            case "album":
+                product.productImageUrl = product.images[0].url;
+                break;
+            case "track":
+                product.productImageUrl = product.album.images[0].url;
+                break;
+            case "artist":
+                product.productImageUrl = product.images[0].url;
+                break;
+            default:
+                break;
+        }
         LikeServiceClient.getInstance().like(user, product).then(
             response => {
                 UserServiceClient.getInstance().getUserById(user.id).then(

@@ -5,7 +5,8 @@ const PlayListList = ({playlists,
                        hasDeleteAccess,
                        newPlayList, 
                        createPlayList, 
-                       newPlayListNameChanged}) => {
+                       newPlayListNameChanged,
+                       deletePlayListById}) => {
     console.log("Has create list access : ", hasCreateAccess);
     console.log("Render playlists : ", playlists, userId);
     return (
@@ -26,7 +27,8 @@ const PlayListList = ({playlists,
                                         </a>
                                     </div>
                                     <div class="col text-right"
-                                         hidden={hasDeleteAccess ? false : true}>
+                                         hidden={hasDeleteAccess ? false : true}
+                                         onClick={() => deletePlayListById(userId, list)}>
                                         <button type="button" 
                                                 class="btn btn-primary mr-auto">
                                             Delete
