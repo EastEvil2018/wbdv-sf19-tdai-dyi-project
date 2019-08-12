@@ -5,6 +5,7 @@ import CommentServiceClient from '../../services/comment/CommentService';
 import FollowServiceClient from '../../services/follow/FollowService';
 import PlayListServiceClient from '../../services/playlist/PlayListService';
 import LikeServiceClient from '../../services/like/LikeService';
+import { withRouter } from "react-router";
 
 
 const stateToPropsMapper = state => ({
@@ -163,13 +164,27 @@ const propsToDispatcher = dispatch => ({
                 })                 
             }
         );
+    },
+    deleteAccount: (history, loggedInUser) => {
+        console.log("DELETE ACCOUNT : ", loggedInUser);
+        UserServiceClient.getInstance().deleteUserById(loggedInUser.id).then(
+            response => {
+                history.push('/');
+                dispatch({
+                    type: "DELETE_ACCOUNT"
+                });
+                dispatch({
+                    type: "LOG_OUT"
+                });
+            }
+        );
     }
 })
 
 const ProfileContainer 
-    = connect(
+    = withRouter(connect(
         stateToPropsMapper,
-        propsToDispatcher)(ProfileComponent);
+        propsToDispatcher)(ProfileComponent));
 
 
 export default ProfileContainer;

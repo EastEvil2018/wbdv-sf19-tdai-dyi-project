@@ -1,8 +1,35 @@
 import React from 'react';
 import FileBase64 from 'react-file-base64';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
-export const SettingForm = ({settingForm, settingFormChanged, uploadImage, updateUser, show}) => {
+export const SettingForm = ({loggedInUser, 
+                             history,
+                             settingForm, 
+                             settingFormChanged, 
+                             uploadImage, 
+                             updateUser, 
+                             show,
+                             deleteAccount}) => {
     console.log("RENDER SETTING FORM : ", settingForm, show);
+    const confirmOptions = {
+        customUI: ({ onClose }) => {
+            return (
+              <div className='container'>
+                <h1>Are you sure?</h1>
+                <p>You want to delete this account?</p>
+                <button class="btn btn-danger btn-block"
+                        onClick={() => { deleteAccount(history, loggedInUser); onClose();}}>
+                  Yes, Delete it!
+                </button>
+                <button class="btn btn-primary btn-block"
+                        onClick={onClose}>
+                  No
+                </button>
+              </div>
+            );
+        }
+    };
     return (
         <div class="container" hidden={show ? false : true}>
             <div class="form-group row">
@@ -101,6 +128,12 @@ export const SettingForm = ({settingForm, settingFormChanged, uploadImage, updat
                 <button class="btn btn-primary btn-block mx-auto"
                         onClick={(event) => updateUser(settingForm)}>
                     Submit
+                </button>
+            </div>
+            <div class="form-group row">
+                <button class="btn btn-danger btn-block mx-auto"
+                        onClick={(event) => confirmAlert(confirmOptions)}>
+                    Delete Account
                 </button>
             </div>
         </div>

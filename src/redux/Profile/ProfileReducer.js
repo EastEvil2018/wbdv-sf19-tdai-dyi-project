@@ -50,6 +50,54 @@ const ProfileReducer = (
         message: ""
     }, action
 ) => {
+    const originState = {
+        followed: Boolean,
+        user: {
+            id: "",
+            username: "",
+            intro: "",
+            role: "",
+            profileImageBase64: "",
+            comments: [
+                {
+                    id: "",
+                    product: {
+                        type: "track",
+                        id: "",
+                        name: ""
+                    },
+                    user: {
+                        id: "",
+                        username: ""
+                    }
+                }
+            ],
+            likes: [
+                {
+                    id: "",
+                    product: {
+                        type: "track",
+                        id: "",
+                        name: ""
+                    },
+                    user: {
+                        id: "",
+                        username: ""
+                    }
+                }                
+            ],
+            follows: [],
+            followers: [],
+            playlist: []
+        },
+        newPlayList: {
+            name: ""
+        },
+        settingForm: {
+
+        },
+        message: ""
+    };
     switch(action.type) {
         case "GET_USER_BY_ID":
             return {...state, user: action.user, settingForm: action.user}
@@ -73,6 +121,8 @@ const ProfileReducer = (
         case "UPDATE_PROFILE":
             console.log("UPDATE_PROFILE");
             return {...state, message: action.message}
+        case "DELETE_ACCOUNT":
+            return {state: originState}
         default:
             return {...state};
     }

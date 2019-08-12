@@ -24,11 +24,11 @@ const propsToDispatcher = dispatch => ({
         UserServiceClient.getInstance().register(info).then(
             response => {
                 console.log("Register");
-                console.log(response);
+                console.log(response);                
+                history.push('/login'); 
                 dispatch({
                     'type': "REGISTER"
                 })
-                history.push('/login'); 
             });
 
     },

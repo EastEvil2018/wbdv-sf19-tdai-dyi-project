@@ -106,4 +106,13 @@ export default class UserServiceClient {
             return response.json();
         })      
     }
+
+    deleteUserById(id) {
+        return fetch(URL + '/api/users/' + id, {
+            method: "DELETE",
+            credentials: "include"
+        }).then(response => {
+            return response.json();
+        })          
+    }
 }

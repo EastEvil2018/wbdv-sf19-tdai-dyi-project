@@ -136,11 +136,14 @@ export default class ProfileComponent extends React.Component {
                 <Route path="/profile/:uid/settings"
                        exact={true}
                        render={() => 
-                       <SettingForm settingForm={this.props.settingForm} 
+                       <SettingForm loggedInUser={this.props.loggedInUser}
+                                    history={this.props.history}
+                                    settingForm={this.props.settingForm} 
                                     settingFormChanged={this.props.settingFormChanged} 
                                     uploadImage={this.props.uploadImage} 
                                     updateUser={this.props.updateUser}
-                                    show={this.props.loggedIn && this.props.loggedInUser.id === this.props.user.id}/>}/>
+                                    show={this.props.loggedIn && this.props.loggedInUser.id === this.props.user.id}
+                                    deleteAccount={this.props.deleteAccount}/>}/>
                 <Route path="/profile/:uid"
                         exact={true}
                         render={() => 
