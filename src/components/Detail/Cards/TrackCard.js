@@ -131,7 +131,8 @@ const TrackCard = ({track,
                 </div>
             </div>
             <LikeList likes={likes} showProfile={true}/>
-            <CommentList loggedInUser={loggedInUser}
+            <CommentList title={"Comments"}
+                         loggedInUser={loggedInUser}
                          comments={comments} 
                          showCommenterName={true} 
                          showProductName={false}

@@ -47,7 +47,7 @@ const ArtistCard = ({artist,
                         </div>
                         <div class="col-sm-10 px-0 text-center">
                             <img className="d-block rounded-circle mx-auto"
-                                    src={`${artist.images[0].url}`}
+                                    src={artist.images[0] ? `${artist.images[0].url}` : require('../../../images/default-singer-profile.png')}
                                     alt="First slide"
                                     style={{width: "6rem", height: "6rem"}}/>
                         </div>                                       
@@ -96,7 +96,8 @@ const ArtistCard = ({artist,
                 </div>
             </div>
             <LikeList likes={likes} showProfile={true}/>
-            <CommentList loggedInUser={loggedInUser}
+            <CommentList title={"Comments"}
+                         loggedInUser={loggedInUser}
                          comments={comments} 
                          showCommenterName={true} 
                          showProductName={false}

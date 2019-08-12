@@ -109,7 +109,8 @@ export default class ProfileComponent extends React.Component {
                 <Route path="/profile/:uid/comments"
                        exact={true}
                        render={() => 
-                        <CommentList loggedInUser={this.props.loggedInUser}
+                        <CommentList title={"Comments"}
+                                     loggedInUser={this.props.loggedInUser}
                                      comments={this.props.user.comments}
                                      showProductName={true}
                                      showCommenterName={false}
@@ -121,7 +122,8 @@ export default class ProfileComponent extends React.Component {
                 <Route path="/profile/:uid/playlist"
                        exact={true}
                        render={() => 
-                        <PlayListList playlists={this.props.user.playlists}
+                        <PlayListList title={"PlayLists"}
+                                      playlists={this.props.user.playlists}
                                       userId={this.props.user.id}
                                       hasCreateAccess={this.props.loggedIn && this.props.loggedInUser.id === this.props.user.id}
                                       newPlayList={this.props.newPlayList}
@@ -140,7 +142,8 @@ export default class ProfileComponent extends React.Component {
                 <Route path="/profile/:uid"
                         exact={true}
                         render={() => 
-                            <PlayListList playlists={this.props.user.playlists}
+                            <PlayListList title={"PlayLists"}
+                                          playlists={this.props.user.playlists}
                                           userId={this.props.user.id}
                                           hasCreateAccess={this.props.loggedIn && this.props.loggedInUser.id === this.props.user.id}
                                           newPlayList={this.props.newPlayList}
@@ -151,7 +154,8 @@ export default class ProfileComponent extends React.Component {
                 <Route path="/profile"
                         exact={true}
                         render={() => 
-                            <PlayListList playlists={this.props.user.playlists}
+                            <PlayListList title={"PlayLists"}
+                                          playlists={this.props.user.playlists}
                                           userId={this.props.user.id}
                                           hasCreateAccess={this.props.loggedIn && this.props.loggedInUser.id === this.props.user.id}
                                           newPlayList={this.props.newPlayList}

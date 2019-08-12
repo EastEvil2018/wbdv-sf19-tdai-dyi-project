@@ -14,13 +14,18 @@ export default class UserStateComponent extends React.Component {
             case true:
                 return (
                     <ul class="navbar-nav">
+                        <li class="nav-item" hidden={this.props.loggedInUser.id ? false : true}>
+                            <a class="nav-link text-white"
+                               style={{fontSize: "1.2rem"}}>Hi, {this.props.loggedInUser.username}</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link text-primary" 
-                               href={"/profile/" + this.props.loggedInUser.id }>My profile</a>
+                               href={"/profile/" + this.props.loggedInUser.id }
+                               style={{fontSize: "1.1rem"}}>My profile</a>
                         </li>              
                         <li class="nav-item ml-2">
                             <button type="button" 
-                                    class="btn btn-primary"
+                                    class="btn btn-outline-primary"
                                     onClick={(event) => this.props.logout()}>
                                 Log Out
                             </button>

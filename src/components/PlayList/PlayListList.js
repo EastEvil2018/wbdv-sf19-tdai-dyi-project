@@ -1,5 +1,6 @@
 import React from 'react';
-const PlayListList = ({playlists, 
+const PlayListList = ({title,
+                       playlists, 
                        userId, 
                        hasCreateAccess, 
                        hasDeleteAccess,
@@ -13,7 +14,7 @@ const PlayListList = ({playlists,
         <div class="row">
             <div class="card mb-3 w-100">
                 <div class="card-header">
-                    PlayLists
+                    {title}
                 </div>
                 <ul class="list-group list-group-flush">                  
                     {playlists && playlists.map(list => {

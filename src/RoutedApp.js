@@ -12,9 +12,9 @@ export default class RoutedApp extends React.Component {
     render() {
         return (
             <Router>
-                <div className="container p-0">
+                <div className="container-fluid p-0">
                     <div className="row mb-2">                
-                        <Header></Header>
+                        <Header loggedInUser={this.props.loggedInUser}/>
                     </div>
                     <Route path="/"
                            exact={true}

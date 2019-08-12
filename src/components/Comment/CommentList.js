@@ -1,12 +1,14 @@
 import React from 'react';
 import CommentCard from './CommentCard';
 
-export const CommentList = ({loggedInUser, comments, showProductName, showCommenterName, adminMode, deleteComment}) => {
+export const CommentList = ({title, loggedInUser, comments, showProductName, showCommenterName, adminMode, deleteComment}) => {
     console.log("Render CommentList : ", comments);
     return (
-        <div class="card mt-2">
-            <div class="card-header">
-                Comments
+        <div class="card mt-2 border-0">
+            <div class="card-header border-danger text-dark"
+                 style={{borderWidth: "0.1rem", fontSize: "1.1rem"}}>
+                <i class="fa fa-circle mr-2 text-danger"></i> 
+                {title}
             </div>
             <ul className="w-100 p-0">
                 {/* <ol className="px-1 py-2">
