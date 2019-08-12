@@ -77,6 +77,18 @@ export const SettingForm = ({settingForm, settingFormChanged, uploadImage, updat
                 </div>
             </div>
             <div class="form-group row">
+                <label for="intro" 
+                        class="col-sm-2 col-form-label">
+                    Introduction </label>
+                <div class="col-sm-10">
+                    <textarea class="form-control"
+                                rows="3"
+                                value={settingForm.intro}
+                                onChange={(event) => 
+                                    settingFormChanged({...settingForm, intro: event.target.value})}></textarea>
+                </div>
+            </div>
+            <div class="form-group row">
                 <label for="profile" 
                         class="col-sm-2 col-form-label">
                     Profile </label>

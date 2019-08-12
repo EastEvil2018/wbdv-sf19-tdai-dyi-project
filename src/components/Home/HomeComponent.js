@@ -51,7 +51,7 @@ export default class HomeComponent extends React.Component {
 
 const HomeCarousel = ({}) => {
     return (
-        <Carousel indicators={false}>
+        <Carousel indicators={false} interval={2000}>
             <Carousel.Item>
                 <div class="row text-center mt-3">
                     <HomeCarouselItem 

@@ -29,10 +29,51 @@ const TrackCard = ({track,
     console.log("Has Likes : ", hasLiked);
 
     return (
-        <div>
-            <div class="card">
-                <div class="card-header">
-                    Track
+        <div class="container">
+            <div class="input-group mt-4"
+                hidden={loggedIn ? false : true}
+                style={{background:"#f5f5f5"}}>
+                <select class="custom-select mr-2"
+                        onChange={(event) => selectedPlayListChanged(event.target.value)}>
+                    <option selected value="">Select a Playlist</option>
+                    {loggedInUser.playlists.map(playlist => {
+                        return (
+                            <option value={playlist.id}>{playlist.name}</option>
+                        );
+                    })}
+                </select>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" 
+                            type="button"
+                            onClick={() => 
+                                addToPlayList(loggedInUser, track, selectedPlayListId)}>
+                        Add To PlayList
+                    </button>
+                </div>
+            </div>
+            <div class="card border-0">
+                <div class="card-header border-danger text-dark"
+                        style={{borderWidth: "0.1rem", fontSize: "1.1rem", background:"#f5f5f5"}}>
+                        <div class="row">
+                            <div class="col my-auto">
+                                <i class="fa fa-circle mr-2 text-danger"></i> 
+                                Track
+                            </div>
+                            <div class="col text-right">
+                                <button type="button" 
+                                        class="btn btn-outline-primary"
+                                        hidden={hasLiked ? true : false}
+                                        onClick={(event) => postLike(loggedInUser, track)}>
+                                    Like
+                                </button>
+                                <button type="button" 
+                                        class="btn btn-outline-primary"
+                                        hidden={hasLiked ? false : true}
+                                        onClick={(event) => postUnlike(loggedInUser, track)}>
+                                    UnLike
+                                </button>
+                            </div>
+                        </div>
                 </div>
                 <div class="card-body container">
                     <div class="row my-2">
@@ -90,42 +131,6 @@ const TrackCard = ({track,
                         </div>
                         <div class="col-sm-10 text-center">
                             {track.album.release_date}
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer"
-                     hidden={loggedIn ? false : true}>
-                    <div class="input-group">
-                        <select class="custom-select mr-2"
-                                onChange={(event) => selectedPlayListChanged(event.target.value)}>
-                            <option selected value="">Select a Playlist</option>
-                            {loggedInUser.playlists.map(playlist => {
-                                return (
-                                    <option value={playlist.id}>{playlist.name}</option>
-                                );
-                            })}
-                        </select>
-                        <div class="input-group-append mr-2">
-                            <button class="btn btn-outline-secondary" 
-                                    type="button"
-                                    onClick={() => 
-                                        addToPlayList(loggedInUser, track, selectedPlayListId)}>
-                                Add To PlayList
-                            </button>
-                        </div>
-                        <div class="input-group-append">
-                            <button type="button" 
-                                    class="btn btn-primary"
-                                    hidden={hasLiked ? true : false}
-                                    onClick={(event) => postLike(loggedInUser, track)}>
-                                Like
-                            </button>
-                            <button type="button" 
-                                    class="btn btn-primary"
-                                    hidden={hasLiked ? false : true}
-                                    onClick={(event) => postUnlike(loggedInUser, track)}>
-                                UnLike
-                            </button>
                         </div>
                     </div>
                 </div>

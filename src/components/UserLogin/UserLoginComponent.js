@@ -13,7 +13,8 @@ export default class UserLoginComponent extends React.Component {
         if (this.props.loggedIn)
             return <Redirect to="/home" />;
         return (
-            <div>
+            <div class="container"
+                 style={{background: "#f5f5f5"}}>
                 <div class="form-group row">
                     <label for="username" class="col-sm-2 col-form-label">
                     Username </label>

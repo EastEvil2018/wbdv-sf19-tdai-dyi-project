@@ -25,6 +25,9 @@ const propsToDispatcher = dispatch => ({
             response => {
                 console.log("Register");
                 console.log(response);
+                dispatch({
+                    'type': "REGISTER"
+                })
                 history.push('/login'); 
             });
 

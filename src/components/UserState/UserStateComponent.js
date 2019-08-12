@@ -38,11 +38,11 @@ export default class UserStateComponent extends React.Component {
                 return (
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="btn btn-primary" 
+                            <a class="btn btn-outline-primary" 
                                href="/login">Sign In</a>
                         </li>                
                         <li class="nav-item ml-2">
-                            <a class="btn btn-primary"
+                            <a class="btn btn-outline-primary"
                                href="/register">Sign Up</a>
                         </li>
                     </ul> 

@@ -28,9 +28,11 @@ const AlbumCard = ({album,
     console.log("Has Likes : ", hasLiked);
 
     return (
-        <div>
-            <div class="card">
-                <div class="card-header">
+        <div class="container">
+            <div class="card border-0">
+                <div class="card-header border-danger text-dark"
+                    style={{borderWidth: "0.1rem", fontSize: "1.1rem", background:"#f5f5f5"}}>
+                    <i class="fa fa-circle mr-2 text-danger"></i> 
                     Album
                 </div>
                 <div class="card-body container">

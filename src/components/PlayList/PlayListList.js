@@ -12,8 +12,10 @@ const PlayListList = ({title,
     console.log("Render playlists : ", playlists, userId);
     return (
         <div class="row">
-            <div class="card mb-3 w-100">
-                <div class="card-header">
+            <div class="card mb-3 w-100 border-0">
+                <div class="card-header border-danger text-dark"
+                    style={{borderWidth: "0.1rem", fontSize: "1.1rem", background:"#f5f5f5"}}>
+                    <i class="fa fa-circle mr-2 text-danger"></i> 
                     {title}
                 </div>
                 <ul class="list-group list-group-flush">                  
@@ -21,13 +23,13 @@ const PlayListList = ({title,
                         return (
                             <li class="list-group-item">
                                 <div class="row">
-                                    <div class="col">
+                                    <div class="col my-auto">
                                         <a href={"/playlist/" + list.id}
                                         target="_blank">
                                             {list.name}
                                         </a>
                                     </div>
-                                    <div class="col text-right"
+                                    <div class="col text-right my-auto"
                                          hidden={hasDeleteAccess ? false : true}
                                          onClick={() => deletePlayListById(userId, list)}>
                                         <button type="button" 

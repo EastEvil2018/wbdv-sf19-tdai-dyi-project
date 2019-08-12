@@ -15,7 +15,7 @@ export default class UserRegistrationComponent extends React.Component {
         // }
         console.log(this.props);
         return (
-            <div>
+            <div class="container">
                 <div class="form-group row">
                     <img className="card-img-top rounded-circle mx-auto"
                         src={this.props.info.profileImgBase64 === null ? 
@@ -86,6 +86,17 @@ export default class UserRegistrationComponent extends React.Component {
                                placeholder="Alexander"
                                onChange={(event) =>
                                     this.props.userRegistrationInfoChanged({...this.props.info, lastName: event.target.value})}/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="intro" 
+                           class="col-sm-2 col-form-label">
+                        Introduction </label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control"
+                                    rows="3"
+                                    onChange={(event) => 
+                                        this.props.userRegistrationInfoChanged({...this.props.info, intro: event.target.value})}></textarea>
                     </div>
                 </div>
                 <div class="form-group row">

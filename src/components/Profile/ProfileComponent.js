@@ -57,10 +57,12 @@ export default class ProfileComponent extends React.Component {
         console.log("ProfileComponent: ", this.props);      
 
         return (
-            <div class="w-100">
+            <div class="container">
                 <div class="row">
-                    <div class="card mb-3 w-100">
-                        <div class="card-header">
+                    <div class="card mb-3 w-100 border-0">
+                        <div class="card-header border-danger text-dark"
+                            style={{borderWidth: "0.1rem", fontSize: "1.1rem", background:"#f5f5f5"}}>
+                            <i class="fa fa-circle mr-2 text-danger"></i> 
                             Profile
                         </div>
                         <div class="row no-gutters">
@@ -70,8 +72,8 @@ export default class ProfileComponent extends React.Component {
                             </div>
                             <div class="col-sm-8 col-md-8 col-lg-10 card border-0">
                                 <div class="card-body">
-                                    <h5 class="card-title">{this.props.user.username}EastEvil</h5> 
-                                    <p class="card-text">{this.props.user.intro}A Fun Guy</p>
+                                    <h5 class="card-title">{this.props.user.username}</h5> 
+                                    <p class="card-text">{this.props.user.intro}</p>
                                     {this.renderFollowButton()}
                                     <div class="container">
                                         <div class="row">

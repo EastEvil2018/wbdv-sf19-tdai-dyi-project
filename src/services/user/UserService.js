@@ -51,6 +51,7 @@ export default class UserServiceClient {
             password: info.password,
             firstName: info.firstName,
             lastName: info.lastName,
+            intro: info.intro,
             role: info.role,
             profilePhoto: info.profileImgBase64
         }
@@ -89,6 +90,7 @@ export default class UserServiceClient {
             password: user.password,
             firstName: user.firstName,
             lastName: user.lastName,
+            intro: user.intro,
             role: user.role,
             profilePhoto: user.profilePhoto
         }

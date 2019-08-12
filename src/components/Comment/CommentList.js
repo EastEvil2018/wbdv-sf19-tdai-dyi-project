@@ -6,7 +6,7 @@ export const CommentList = ({title, loggedInUser, comments, showProductName, sho
     return (
         <div class="card mt-2 border-0">
             <div class="card-header border-danger text-dark"
-                 style={{borderWidth: "0.1rem", fontSize: "1.1rem"}}>
+                 style={{borderWidth: "0.1rem", fontSize: "1.1rem", background:"#f5f5f5"}}>
                 <i class="fa fa-circle mr-2 text-danger"></i> 
                 {title}
             </div>

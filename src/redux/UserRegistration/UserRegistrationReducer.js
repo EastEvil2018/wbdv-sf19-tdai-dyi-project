@@ -6,6 +6,7 @@ const UserRegistrationReducer = (
             verifiedPassword: "",
             firstName: "",
             lastName: "",
+            intro: "",
             role: "USER",
             profileImgBase64: null,
         },
@@ -17,7 +18,17 @@ const UserRegistrationReducer = (
         case "REGISTRATION_INFO_CHANGED":
             return {...state, info: action.registrationInfo};
         case "REGISTER":
-            return {...state, registered: true};
+            return {...state, 
+                info: {
+                    username: "",
+                    password: "",
+                    verifiedPassword: "",
+                    firstName: "",
+                    lastName: "",
+                    intro: "",
+                    role: "USER",
+                    profileImgBase64: null,                    
+                },registered: true};
         case "IMAGE_UPLOAD":
             return {...state, info: {...state.info, profileImgBase64: action.base64Image }}
         default:

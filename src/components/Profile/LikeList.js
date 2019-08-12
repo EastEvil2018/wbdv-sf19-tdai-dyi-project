@@ -4,8 +4,10 @@ import LikeCard from './LikeCard';
 export const LikeList = ({likes, showProfile}) => {
     console.log("RENDER LIKELIST : ", likes);
     return (
-        <div class="card mt-2">
-            <div class="card-header">
+        <div class="card mt-2 border-0">
+            <div class="card-header border-danger text-dark"
+                 style={{borderWidth: "0.1rem", fontSize: "1.1rem",background:"#f5f5f5"}}>
+                <i class="fa fa-circle mr-2 text-danger"></i> 
                 Likes
             </div>
             <div class="card-body row">
