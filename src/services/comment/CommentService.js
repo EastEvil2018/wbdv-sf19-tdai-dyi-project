@@ -37,6 +37,7 @@ export default class CommentServiceClient {
             productId: product.id,
             productType: product.type,
             productName: product.name,
+            productImageUrl: product.productImageUrl,
             comment: comment
         }
         console.log("COMMENT", body);
