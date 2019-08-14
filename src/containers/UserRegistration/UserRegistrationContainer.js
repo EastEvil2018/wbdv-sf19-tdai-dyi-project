@@ -18,17 +18,41 @@ const propsToDispatcher = dispatch => ({
         });
     },
     register: (info, history) => {
+        const validate = (info) => {
+            return  (info.username === undefined || 
+                     info.username === "" ||
+                     info.password === undefined ||
+                     info.password === "" ||
+                     info.firstName === '' ||
+                     info.firstName === undefined ||
+                     info.lastName === '' ||
+                     info.lastName === undefined)
+        }
         if (info.password !== info.verifiedPassword) {
+            return;
+        }
+        if (validate(info)) {
+            dispatch({
+                type: "REGISTER_FAILED",
+                message: "You have fields unfilled."
+            });
             return;
         }
         UserServiceClient.getInstance().register(info).then(
             response => {
                 console.log("Register");
-                console.log(response);                
-                history.push('/login'); 
-                dispatch({
-                    'type': "REGISTER"
-                })
+                console.log(response);  
+                if (response.message) {
+                    dispatch({
+                        type: "REGISTER_FAILED",
+                        message: "Username has been used."
+                    });
+                } else {             
+                    history.push('/login'); 
+                    dispatch({
+                        'type': "REGISTER"
+                    })
+                }
             });
 
     },

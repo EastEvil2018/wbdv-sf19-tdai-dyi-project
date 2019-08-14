@@ -6,6 +6,8 @@ import FollowerList from './FollowerList';
 import CommentList from '../Comment/CommentList';
 import LikeList from './LikeList';
 import SettingForm from './SettingForm';
+import { Redirect } from 'react-router-dom'
+
 
 export default class ProfileComponent extends React.Component {
     constructor(props) {
@@ -13,7 +15,10 @@ export default class ProfileComponent extends React.Component {
         const paths = props.location.pathname.split('/').splice(1);
         const userId = paths[1];
         console.log("Enter profile:", userId);
-        this.props.getUserById(userId);
+        if (userId === undefined)
+            this.props.getUserFromSession();
+        else
+            this.props.getUserById(userId);
     }
     hasFollowed() {
         const loggedInUser = this.props.loggedInUser;
@@ -54,7 +59,11 @@ export default class ProfileComponent extends React.Component {
     }
 
     render(){   
-        console.log("ProfileComponent: ", this.props);      
+        console.log("ProfileComponent: ", this.props);    
+
+        if (this.props.user.id === "") {
+            return ("");
+        }
 
         return (
             <div className="container">
@@ -143,7 +152,8 @@ export default class ProfileComponent extends React.Component {
                                     uploadImage={this.props.uploadImage} 
                                     updateUser={this.props.updateUser}
                                     show={this.props.loggedIn && this.props.loggedInUser.id === this.props.user.id}
-                                    deleteAccount={this.props.deleteAccount}/>}/>
+                                    deleteAccount={this.props.deleteAccount}
+                                    message={this.props.message}/>}/>
                 <Route path="/profile/:uid"
                         exact={true}
                         render={() => 

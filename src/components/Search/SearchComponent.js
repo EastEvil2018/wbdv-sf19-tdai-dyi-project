@@ -14,6 +14,11 @@ export default class SearchComponent extends React.Component {
     constructor(props) {
         console.log(props);
         super(props);
+        const paths = this.props.location.pathname.split('/').splice(1);
+        const type = paths[1];
+        const keyword = paths[2];
+        if (type !== undefined && keyword !== undefined)
+            this.props.search(this.props.history, type, keyword, false);
     }
 
     render() {
@@ -44,7 +49,7 @@ export default class SearchComponent extends React.Component {
                             <div className="input-group-append">
                                 <button className="btn btn-outline-secondary" 
                                         type="button"
-                                        onClick={(event) => this.props.search(this.props.searchType, this.props.keyword)}>
+                                        onClick={(event) => this.props.search(this.props.history, this.props.searchType, this.props.keyword, true)}>
                                     Search
                                 </button>
                             </div>

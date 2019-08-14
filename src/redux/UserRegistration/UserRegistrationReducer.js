@@ -16,7 +16,7 @@ const UserRegistrationReducer = (
 ) => {
     switch(action.type) {
         case "REGISTRATION_INFO_CHANGED":
-            return {...state, info: action.registrationInfo};
+            return {...state, info: action.registrationInfo, message: ""};
         case "REGISTER":
             return {...state, 
                 info: {
@@ -28,9 +28,11 @@ const UserRegistrationReducer = (
                     intro: "",
                     role: "USER",
                     profileImgBase64: null,                    
-                },registered: true};
+                },registered: true, message: ""};
+        case "REGISTER_FAILED":
+            return {...state, message: action.message}
         case "IMAGE_UPLOAD":
-            return {...state, info: {...state.info, profileImgBase64: action.base64Image }}
+            return {...state, info: {...state.info, profileImgBase64: action.base64Image }, message: ""}
         default:
             return state;
     }

@@ -8,6 +8,7 @@ import DetailContainer from './containers/Detail/DetailContainer';
 import HomeContainer from './containers/Home/HomeContainer';
 import ProfileContainer from './containers/Profile/ProfileContainer';
 import PlayListContainer from './containers/PlayList/PlayListContainer';
+import ErrorComponent from './components/Error/ErrorComponent';
 export default class RoutedApp extends React.Component {
     render() {
         return (
@@ -19,8 +20,7 @@ export default class RoutedApp extends React.Component {
                     <Route path="/"
                            exact={true}
                            component={HomeContainer}/>
-                    <Route exact={true}
-                           path="/search"
+                    <Route path="/search"
                            component={SearchContainer}/>
                     <Route exact={true}
                            path="/login"
@@ -38,6 +38,9 @@ export default class RoutedApp extends React.Component {
                     <Route path="/playlist/:pid"
                             exact={true}
                             component={PlayListContainer}/>
+                     <Route path="/error" 
+                            exact={true}
+                            component={ErrorComponent}/>
                 </div>
             </Router>
         )

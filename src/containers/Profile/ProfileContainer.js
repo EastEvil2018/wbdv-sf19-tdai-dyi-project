@@ -14,6 +14,29 @@ const stateToPropsMapper = state => ({
 })
 
 const propsToDispatcher = dispatch => ({
+    getUserFromSession: () => {
+        UserServiceClient.getInstance().getUserFromSession().then(
+            response => {
+                console.log("GET SESSION : ",response);
+                if (response.message)
+                    return;
+                else {
+                    UserServiceClient.getInstance().getUserById(response.id).then(
+                        response => {
+                            dispatch({
+                                type: 'UPDATE_LOGGED_IN_USER',
+                                user: response
+                            });
+                            dispatch({
+                                type: "GET_USER_BY_ID",
+                                user: response
+                            })
+                        }
+                    )
+                }
+            }
+        );
+    },
     getUserById: (userId) => {
         UserServiceClient.getInstance().getUserById(userId).then(
             response => {
@@ -120,10 +143,31 @@ const propsToDispatcher = dispatch => ({
             }
         );         
     },
-    updateUser: (user) => {
+    updateUser: (history, user) => {
+        const validate = (info) => {
+            return  (info.username === undefined || 
+                     info.username === "" ||
+                     info.password === undefined ||
+                     info.password === "" ||
+                     info.firstName === '' ||
+                     info.firstName === undefined ||
+                     info.lastName === '' ||
+                     info.lastName === undefined)
+        }
+        if (user.password !== user.verifiedPassword) {
+            return;
+        }
+        if (validate(user)) {
+            dispatch({
+                type: "UPDATE_USER_FAILED",
+                message: "You have fields unfilled."
+            });
+            return;
+        }
         UserServiceClient.getInstance().updateUser(user).then(
             updatedUser => {
                 console.log("UPDATED USER : ", updatedUser);
+                history.push("/profile");
                 dispatch({
                     type: "UPDATE_LOGGED_IN_USER",
                     user: updatedUser

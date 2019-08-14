@@ -10,7 +10,8 @@ export const SettingForm = ({loggedInUser,
                              uploadImage, 
                              updateUser, 
                              show,
-                             deleteAccount}) => {
+                             deleteAccount,
+                             message}) => {
     console.log("RENDER SETTING FORM : ", settingForm, show);
     const confirmOptions = {
         customUI: ({ onClose }) => {
@@ -124,9 +125,12 @@ export const SettingForm = ({loggedInUser,
                                 onDone={ uploadImage.bind(this)} />
                 </div>
             </div>
+            <div className="form-group row text-danger floar-right">
+                    {message}
+            </div>
             <div className="form-group row">
                 <button className="btn btn-primary btn-block mx-auto"
-                        onClick={(event) => updateUser(settingForm)}>
+                        onClick={(event) => updateUser(history, settingForm)}>
                     Submit
                 </button>
             </div>

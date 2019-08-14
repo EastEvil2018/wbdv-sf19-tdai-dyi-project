@@ -59,7 +59,8 @@ const TrackCard = ({track,
                                 <i className="fa fa-circle mr-2 text-danger"></i> 
                                 Track
                             </div>
-                            <div className="col text-right">
+                            <div className="col text-right"
+                                  hidden={loggedIn ? false : true}>
                                 <button type="button" 
                                         className="btn btn-outline-primary"
                                         hidden={hasLiked ? true : false}

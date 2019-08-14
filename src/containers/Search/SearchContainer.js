@@ -21,7 +21,7 @@ const propsToDispatcher = dispatch => ({
             keyword: keyword
         });
     },
-    search: (type, keyword) => {
+    search: (history, type, keyword, shouldNavigate) => {
         if (WebUtils.isStringEmpty(keyword)) {
             return;
         }
@@ -36,6 +36,9 @@ const propsToDispatcher = dispatch => ({
                     response => {
                         console.log("MUSIC RESULTS",response);
                         const results = response[SpotifyKey[type]]['items'];  
+                        
+                        if (shouldNavigate)
+                            history.push('/search/' + type + "/" + keyword);
                         
                         dispatch({
                             type: "SEARCH",

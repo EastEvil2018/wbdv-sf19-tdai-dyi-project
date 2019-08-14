@@ -30,6 +30,7 @@ export default class UserRegistrationComponent extends React.Component {
                         <input className="form-control"
                                id="username"
                                placeholder="Alice"
+                               required="true"
                                onChange={(event) => 
                                     this.props.userRegistrationInfoChanged({...this.props.info, username: event.target.value})}/>
                     </div>
@@ -42,6 +43,7 @@ export default class UserRegistrationComponent extends React.Component {
                                className="form-control wbdv-password-fld"
                                id="password" 
                                placeholder="123qwe#$%"
+                               required="true"
                                onChange={(event) => 
                                     this.props.userRegistrationInfoChanged({...this.props.info, password: event.target.value})}/>
                     </div>
@@ -54,6 +56,7 @@ export default class UserRegistrationComponent extends React.Component {
                                className="form-control wbdv-password-fld"
                                id="password" 
                                placeholder="123qwe#$%"
+                               required="true"
                                onChange={(event) =>
                                     this.props.userRegistrationInfoChanged({...this.props.info, verifiedPassword: event.target.value})}/>
                         <span className="text-danger" 
@@ -68,6 +71,7 @@ export default class UserRegistrationComponent extends React.Component {
                     <div className="col-sm-10">
                         <input className="form-control"
                                id="firstName" 
+                               required="true"
                                placeholder="Alice"
                                onChange={(event) =>
                                     this.props.userRegistrationInfoChanged({...this.props.info, firstName: event.target.value})}/>
@@ -79,6 +83,7 @@ export default class UserRegistrationComponent extends React.Component {
                     <div className="col-sm-10">
                         <input className="form-control"
                                id="lastName" 
+                               required="true"
                                placeholder="Alexander"
                                onChange={(event) =>
                                     this.props.userRegistrationInfoChanged({...this.props.info, lastName: event.target.value})}/>
@@ -113,6 +118,9 @@ export default class UserRegistrationComponent extends React.Component {
                         <FileBase64 multiple={ false }
                                     onDone={ this.props.uploadImage.bind(this) } />
                     </div>
+                </div>
+                <div className="form-group row text-danger floar-right">
+                    {this.props.message}
                 </div>
                 <div className="form-group row">
                     <label className="col-sm-2 col-form-label"></label>

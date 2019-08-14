@@ -21,6 +21,7 @@ const propsToDispatcher = dispatch => ({
                                 type: 'UPDATE_LOGGED_IN_USER',
                                 user: response
                             });
+                            return response;
                         }
                     )
                 }

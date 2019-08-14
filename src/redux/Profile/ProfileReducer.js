@@ -100,29 +100,31 @@ const ProfileReducer = (
     };
     switch(action.type) {
         case "GET_USER_BY_ID":
-            return {...state, user: action.user, settingForm: action.user}
+            return {...state, user: action.user, settingForm: action.user, message: ""}
         case "FOLLOW":
-            return {...state, followed: true}
+            return {...state, followed: true, message: ""}
         case "UPDATE_PROFILE_USER":
-            return {...state, user: action.user, settingForm: action.user}
+            return {...state, user: action.user, settingForm: action.user, message: ""}
         case "UNFOLLOW":
-            return {...state, followed: false}
+            return {...state, followed: false, message: ""}
         case "GET_COMMENTS_FOR_USER":
             console.log(state);
-            return {...state, user: {...state.user, comments: action.comments}}
+            return {...state, user: {...state.user, comments: action.comments}, message: ""}
         case "NEW_PLAYLIST_NAME_CHANGED":
-            return {...state, newPlayList: {...state.newPlayList, name: action.name}};
+            return {...state, newPlayList: {...state.newPlayList, name: action.name}, message: ""};
         case "CREATE_PLAYLIST":
-            return {...state};
+            return {...state, message: ""};
         case "SETTING_FORM_CHANGED":
-            return {...state, settingForm: action.settingForm};
+            return {...state, settingForm: action.settingForm, message: ""};
         case "SETTING_FORM_IMAGE_UPLOAD":
-            return {...state, settingForm: {...state.settingForm, profilePhoto: action.base64Image }}
+            return {...state, settingForm: {...state.settingForm, profilePhoto: action.base64Image }, message: ""}
         case "UPDATE_PROFILE":
             console.log("UPDATE_PROFILE");
-            return {...state, message: action.message}
+            return {...state, message: ""}
         case "DELETE_ACCOUNT":
-            return {state: originState}
+            return {state: originState, message: ""}
+        case "UPDATE_USER_FAILED":
+            return {...state, message: action.message}
         default:
             return {...state};
     }
