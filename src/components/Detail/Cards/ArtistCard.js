@@ -30,9 +30,27 @@ const ArtistCard = ({artist,
         <div className="container">
             <div className="card border-0">
                 <div className="card-header border-danger text-dark"
-                        style={{borderWidth: "0.1rem", fontSize: "1.1rem",background:"#f5f5f5"}}>
-                        <i className="fa fa-circle mr-2 text-danger"></i> 
-                        Artist
+                        style={{borderWidth: "0.1rem", fontSize: "1.1rem", background:"#f5f5f5"}}>
+                        <div className="row">
+                            <div className="col my-auto">
+                                <i className="fa fa-circle mr-2 text-danger"></i> 
+                                Artist
+                            </div>
+                            <div className="col text-right">
+                                <button type="button" 
+                                        className="btn btn-outline-primary"
+                                        hidden={hasLiked ? true : false}
+                                        onClick={(event) => postLike(loggedInUser, artist)}>
+                                    Like
+                                </button>
+                                <button type="button" 
+                                        className="btn btn-outline-primary"
+                                        hidden={hasLiked ? false : true}
+                                        onClick={(event) => postUnlike(loggedInUser, artist)}>
+                                    UnLike
+                                </button>
+                            </div>
+                        </div>
                 </div>
                 <div className="card-body container">
                     <div className="row my-2">
@@ -75,25 +93,6 @@ const ArtistCard = ({artist,
                                     allow="encrypted-media">
                             </iframe>
                         </div>    
-                    </div>
-                </div>
-                <div className="card-footer"
-                     hidden={loggedIn ? false : true}>
-                    <div className="input-group">
-                        <div className="input-group-append">
-                            <button type="button" 
-                                    className="btn btn-primary"
-                                    hidden={hasLiked ? true : false}
-                                    onClick={(event) => postLike(loggedInUser, artist)}>
-                                Like
-                            </button>
-                            <button type="button" 
-                                    className="btn btn-primary"
-                                    hidden={hasLiked ? false : true}
-                                    onClick={(event) => postUnlike(loggedInUser, artist)}>
-                                UnLike
-                            </button>
-                        </div>
                     </div>
                 </div>
             </div>
