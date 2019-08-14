@@ -24,6 +24,22 @@ export default class CommentServiceClient {
         return [];
     }
 
+    updateCommentById(comment, commentContent) {
+        comment.comment = commentContent;
+
+        var body = comment;
+
+        return fetch(URL + "/api/comments/" + comment.id, {
+            method: "PUT",
+            body: JSON.stringify(body),
+            headers: {
+				'content-type': 'application/json'
+            }
+        }).then(response => {
+            return response.json();
+        })
+    }
+
     deleteCommentById(id) {
         return fetch(URL + "/api/comments/" + id, {
             method: "DELETE"

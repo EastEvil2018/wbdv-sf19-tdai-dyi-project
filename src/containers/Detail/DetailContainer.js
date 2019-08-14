@@ -106,6 +106,31 @@ const propsToDispatcher = dispatch => ({
             }
         );
     } ,
+    updateComment(loggedInUser,  comment, commentContent) {
+        CommentServiceClient.getInstance().updateCommentById(comment, commentContent).then(
+            response => {
+                UserServiceClient.getInstance().getUserById(comment.userId).then(
+                    user => {
+                        CommentServiceClient.getInstance().
+                        findAllCommentsForProduct(comment.productId, comment.productType).then(
+                            comments => {
+                                if (user.id === loggedInUser.id) {
+                                    dispatch({
+                                        type: "UPDATE_LOGGED_IN_USER",
+                                        user: user
+                                    });
+                                }
+                                dispatch({
+                                    type: "UPDATE_PRODUCT_COMMENTS",
+                                    comments: comments            
+                                }); 
+                            }
+                        )
+                    }
+                );
+            }
+        )
+    },
     postUnlike: (user, product) => {
         LikeServiceClient.getInstance().unLike(user, product).then(
             response => {

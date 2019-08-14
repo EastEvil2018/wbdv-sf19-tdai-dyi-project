@@ -6,6 +6,7 @@ import FollowServiceClient from '../../services/follow/FollowService';
 import PlayListServiceClient from '../../services/playlist/PlayListService';
 import LikeServiceClient from '../../services/like/LikeService';
 import { withRouter } from "react-router";
+import NotificationServiceClient from '../../services/notification/NotificationService';
 
 
 const stateToPropsMapper = state => ({
@@ -123,6 +124,26 @@ const propsToDispatcher = dispatch => ({
             }
         );
     },
+    updateComment(loggedInUser,comment, commentContent) {
+        CommentServiceClient.getInstance().updateCommentById(comment, commentContent).then(
+            response => {
+                UserServiceClient.getInstance().getUserById(comment.userId).then(
+                    user => {
+                        if (user.id === loggedInUser.id) {
+                            dispatch({
+                                type: "UPDATE_LOGGED_IN_USER",
+                                user: user
+                            });
+                        }
+                        dispatch({
+                            type: "UPDATE_PROFILE_USER",
+                            user: user            
+                        }); 
+                    }
+                );                 
+            }
+        );
+    },
     deleteComment: (loggedInUser, comment) => {
         CommentServiceClient.getInstance().deleteCommentById(comment.id).then(
             response => {
@@ -222,7 +243,61 @@ const propsToDispatcher = dispatch => ({
                 });
             }
         );
-    }
+    },
+    postNotification: (loggedInUser, content) => {
+        NotificationServiceClient.getInstance().postNotification(loggedInUser.id, content).then(
+            response => {
+                UserServiceClient.getInstance().getUserById(loggedInUser.id).then(
+                    user => {
+                        dispatch({
+                            type: "UPDATE_LOGGED_IN_USER",
+                            user: user
+                        });
+                        dispatch({
+                            type: "UPDATE_PROFILE_USER",
+                            user: user
+                        });
+                    }
+                )
+            }
+        );
+    },
+    deleteNotification: (notification) => {
+        NotificationServiceClient.getInstance().deleteNotification(notification).then(
+            response => {
+                UserServiceClient.getInstance().getUserById(notification.userId).then(
+                    user => {
+                        dispatch({
+                            type: "UPDATE_LOGGED_IN_USER",
+                            user: user
+                        });
+                        dispatch({
+                            type: "UPDATE_PROFILE_USER",
+                            user: user
+                        });
+                    }
+                )
+            }
+        );
+    },
+    updateNotification: (notification, content) => {
+        NotificationServiceClient.getInstance().updateNotification(notification, content).then(
+            response => {
+                UserServiceClient.getInstance().getUserById(notification.userId).then(
+                    user => {
+                        dispatch({
+                            type: "UPDATE_LOGGED_IN_USER",
+                            user: user
+                        });
+                        dispatch({
+                            type: "UPDATE_PROFILE_USER",
+                            user: user
+                        });
+                    }
+                )
+            }
+        );
+    },
 })
 
 const ProfileContainer 

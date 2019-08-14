@@ -96,6 +96,10 @@ const ProfileReducer = (
         settingForm: {
 
         },
+        commentContentToUpdate: {
+            id: "",
+            commentContent: ""
+        },
         message: ""
     };
     switch(action.type) {
@@ -125,6 +129,8 @@ const ProfileReducer = (
             return {state: originState, message: ""}
         case "UPDATE_USER_FAILED":
             return {...state, message: action.message}
+        case "COMMENT_CONTENT_CHANGED":
+            return {...state, commentToUpdate: {...state.commentToUpdate, id: action.commentId, commentContent: action.commentContent}}
         default:
             return {...state};
     }

@@ -60,4 +60,13 @@ export default class PlayListServiceClient {
             return response.json();
         })
     }
+
+
+    deleteItemInPlayList(playListId, trackId) {
+        return fetch(URL + "/api/playlists/" + playListId + "/track/" + trackId, {
+            method: "DELETE"
+        }).then(response => {
+            return response.json();
+        })
+    }
 }

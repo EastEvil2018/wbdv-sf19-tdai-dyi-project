@@ -1,7 +1,15 @@
 import React from 'react';
 import CommentCard from './CommentCard';
 
-export const CommentList = ({title, loggedInUser, comments, showProductName, showCommenterName, adminMode, deleteComment}) => {
+export const CommentList = ({
+        title, 
+        loggedInUser, 
+        comments, 
+        showProductName, 
+        showCommenterName, 
+        adminMode, 
+        deleteComment, 
+        updateComment}) => {
     console.log("Render CommentList : ", comments);
     return (
         <div className="card mt-2 border-0">
@@ -47,7 +55,8 @@ export const CommentList = ({title, loggedInUser, comments, showProductName, sho
                                          showCommenterName={showCommenterName} 
                                          showProductName={showProductName}
                                          adminMode={adminMode}
-                                         deleteComment={deleteComment}/>
+                                         deleteComment={deleteComment}
+                                         updateComment={updateComment}/>
                         </ol>
                     );
                 })}

@@ -18,7 +18,8 @@ const TrackCard = ({track,
                     commmentContent,
                     commentContentChanged, 
                     postComment,
-                    deleteComment}) => {
+                    deleteComment,
+                    updateComment}) => {
     console.log("Render TrackCard : ", likes, loggedInUser, track, commmentContent);
     const signal = loggedInUser.favorites && loggedInUser.favorites.find(like => 
         like.productType === track.type && like.productId === track.id
@@ -143,7 +144,8 @@ const TrackCard = ({track,
                          showCommenterName={true} 
                          showProductName={false}
                          adminMode={loggedIn && loggedInUser.role === "ADMIN"}
-                         deleteComment={deleteComment} />
+                         deleteComment={deleteComment}
+                         updateComment={updateComment}/>
             <div className="card mt-2"
                  hidden={loggedIn ? false : true}>
                 <div className="card-header">

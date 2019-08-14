@@ -18,6 +18,21 @@ const propsToDispatcher = dispatch => ({
                 });
             }
         )
+    },
+    DeleteAnItemInPlayList(list, trackId) {
+        PlayListServiceClient.getInstance().deleteItemInPlayList(list.id, trackId).then(
+            response => {
+                PlayListServiceClient.getInstance().getPlayListById(list.id).then(
+                    playlist => {
+                        console.log(playlist);
+                        dispatch({
+                            type: "GET_PLAYLIST_BY_ID",
+                            playlist: playlist
+                        });
+                    }
+                )                
+            }
+        )
     }
 })
 

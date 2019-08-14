@@ -17,7 +17,8 @@ const AlbumCard = ({album,
                     commmentContent,
                     commentContentChanged, 
                     postComment,
-                    deleteComment}) => {
+                    deleteComment,
+                    updateComment}) => {
     console.log("Render AlbumCard : ", likes, loggedInUser, album, commmentContent);
     const signal = loggedInUser.favorites && loggedInUser.favorites.find(like => 
         like.productType === album.type && like.productId === album.id
@@ -120,7 +121,8 @@ const AlbumCard = ({album,
                          showCommenterName={true} 
                          showProductName={false}
                          adminMode={loggedIn && loggedInUser.role === "ADMIN"}
-                         deleteComment={deleteComment} />
+                         deleteComment={deleteComment}
+                         updateComment={updateComment} />
             <div className="card mt-2"
                  hidden={loggedIn ? false : true}>
                 <div className="card-header">

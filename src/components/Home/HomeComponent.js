@@ -2,12 +2,14 @@ import React from 'react';
 import CommentList from '../Comment/CommentList';
 import PlayListList from '../PlayList/PlayListList';
 import {Carousel} from 'react-bootstrap';
+import NotificationList from './Notification/NotificationList';
 
 export default class HomeComponent extends React.Component {
     constructor(props) {
         super(props);
         console.log(this.props);
         this.props.getRecentComments();
+        this.props.getRecentNotifications();
     }
 
     renderPlayListList() {
@@ -35,14 +37,20 @@ export default class HomeComponent extends React.Component {
     render(){
         return (
             <div className="container">
-                <HomeCarousel />
+               <HomeCarousel />
+               <NotificationList loggedInUser={this.props.loggedInUser}
+                                 notifications={this.props.notifications}
+                                 postNotification={this.props.postNotification}
+                                 deleteNotification={this.props.deleteNotification}
+                                 updateNotification={this.props.updateNotification}/>
                <CommentList title={"Most Recent Comments"}
                             loggedInUser={this.props.loggedInUser}
                             comments={this.props.comments}
                             showProductName={true}
                             showCommenterName={true}
                             adminMode={this.props.loggedIn && this.props.loggedInUser.role === "ADMIN"}
-                            deleteComment={this.props.deleteComment}/>
+                            deleteComment={this.props.deleteComment}
+                            updateComment={this.props.updateComment}/>
                 {this.renderPlayListList()}
             </div>
         );

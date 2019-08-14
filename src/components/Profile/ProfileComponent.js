@@ -7,6 +7,7 @@ import CommentList from '../Comment/CommentList';
 import LikeList from './LikeList';
 import SettingForm from './SettingForm';
 import { Redirect } from 'react-router-dom'
+import NotificationList from '../Home/Notification/NotificationList';
 
 
 export default class ProfileComponent extends React.Component {
@@ -101,6 +102,9 @@ export default class ProfileComponent extends React.Component {
                                             <div className="col-2">
                                                 <Link className="card-link" to={"/profile/" + this.props.user.id + "/playlist"}>PlayList</Link>
                                             </div>
+                                            <div className="col-2" hidden={this.props.loggedIn && this.props.loggedInUser.role === "ADMIN" ? false : true}>
+                                                <Link className="card-link" to={"/profile/" + this.props.user.id + "/notifications"}>Notifications</Link>
+                                            </div>
                                             <div className="col-2" hidden={this.props.loggedIn && this.props.loggedInUser.id === this.props.user.id ? false : true}>
                                                 <Link className="card-link" to={"/profile/" + this.props.user.id + "/settings"}>Settings</Link>
                                             </div>
@@ -111,6 +115,14 @@ export default class ProfileComponent extends React.Component {
                         </div>
                     </div>
                 </div>
+                <Route path="/profile/:uid/notifications"
+                       exact={true}
+                       render={() => 
+                            <NotificationList loggedInUser={this.props.loggedInUser}
+                                              postNotification={this.props.postNotification}
+                                              updateNotification={this.props.updateNotification}
+                                              deleteNotification={this.props.deleteNotification}
+                                              notifications={this.props.loggedInUser.notifications}/>}/>
                 <Route path="/profile/:uid/follows"
                         exact={true}
                         render={() => <FollowList follows={this.props.user.followings}/>}/>   
@@ -126,6 +138,9 @@ export default class ProfileComponent extends React.Component {
                                      showProductName={true}
                                      showCommenterName={false}
                                      adminMode={this.props.loggedIn && (this.props.loggedInUser.role === "ADMIN" || this.props.loggedInUser.id === this.props.user.id)}
+                                     commentContentChanged={this.props.commentContentChanged}
+                                     updateComment={this.props.updateComment}
+                                     haveUpdateAccess={this.props.loggedIn && (this.props.loggedInUser.role === "ADMIN" || this.props.loggedInUser.id === this.props.user.id)}
                                      deleteComment={this.props.deleteComment}/>}/>
                 <Route path="/profile/:uid/likes"
                        exact={true}

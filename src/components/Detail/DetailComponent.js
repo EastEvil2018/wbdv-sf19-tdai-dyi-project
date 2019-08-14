@@ -36,7 +36,8 @@ export default class DetailComponent extends React.Component {
                                   commmentContent={this.props.newCommentContent}
                                   commentContentChanged={this.props.commentContentChanged}
                                   postComment={this.props.postComment}
-                                  deleteComment={this.props.deleteComment}/>
+                                  deleteComment={this.props.deleteComment}
+                                  updateComment={this.props.updateComment}/>
             case SpotifyType.ALBUM:
                 return <AlbumCard   album={this.props.product}
                                     loggedIn={this.props.loggedIn}
@@ -48,7 +49,8 @@ export default class DetailComponent extends React.Component {
                                     commmentContent={this.props.newCommentContent}
                                     commentContentChanged={this.props.commentContentChanged}
                                     postComment={this.props.postComment}
-                                    deleteComment={this.props.deleteComment}/>
+                                    deleteComment={this.props.deleteComment}
+                                    updateComment={this.props.updateComment}/>
             case SpotifyType.ARTIST:
                 return <ArtistCard  artist={this.props.product}
                                     loggedIn={this.props.loggedIn}
@@ -60,7 +62,8 @@ export default class DetailComponent extends React.Component {
                                     commmentContent={this.props.newCommentContent}
                                     commentContentChanged={this.props.commentContentChanged}
                                     postComment={this.props.postComment}
-                                    deleteComment={this.props.deleteComment}/>
+                                    deleteComment={this.props.deleteComment}
+                                    updateComment={this.props.updateComment}/>
             default:
                 return (<div>The product type is not support</div>);
         }

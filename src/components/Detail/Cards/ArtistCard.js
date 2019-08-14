@@ -16,7 +16,8 @@ const ArtistCard = ({artist,
                     commmentContent,
                     commentContentChanged, 
                     postComment,
-                    deleteComment}) => {
+                    deleteComment,
+                    updateComment}) => {
     console.log("Render ArtistCard : ", likes, loggedInUser, artist, commmentContent);
     const signal = loggedInUser.favorites && loggedInUser.favorites.find(like => 
         like.productType === artist.type && like.productId === artist.id
@@ -104,7 +105,8 @@ const ArtistCard = ({artist,
                          showCommenterName={true} 
                          showProductName={false}
                          adminMode={loggedIn && loggedInUser.role === "ADMIN"}
-                         deleteComment={deleteComment} />
+                         deleteComment={deleteComment}
+                         updateComment={updateComment} />
             <div className="card mt-2"
                  hidden={loggedIn ? false : true}>
                 <div className="card-header">

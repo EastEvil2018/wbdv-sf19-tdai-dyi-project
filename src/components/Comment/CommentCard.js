@@ -1,5 +1,6 @@
 import React from 'react';
 import {WebUtils} from '../../utils/WebUtils';
+import {Collapse,  Button} from "react-bootstrap"
 
 {/* <div className="col">
 <a href={"/details/" + comment.productType + "/" + comment.productId}
@@ -11,11 +12,17 @@ import {WebUtils} from '../../utils/WebUtils';
         style={{width: "6rem", height: "6rem"}}/>
 </a>                            
 </div> */}
-const CommentCard = ({loggedInUser, comment, showProductName, showCommenterName, adminMode, deleteComment}) => {
+const CommentCard = ({loggedInUser, 
+                      comment, 
+                      showProductName, 
+                      showCommenterName, 
+                      adminMode, 
+                      deleteComment,
+                      updateComment}) => {
+    const [open, setOpen] = React.useState(false);
     return (
         <div className="card w-100 border-top-0 border-left-0 border-right-0">
-            <div className="card-body p-0"
-                 style={{height: "10rem"}}>
+            <div className="card-body p-0">
                 <div className="row h-100 mx-0">
                     <div className="col-3 my-auto text-center"
                          hidden={showProductName ? false : true}>
@@ -44,22 +51,51 @@ const CommentCard = ({loggedInUser, comment, showProductName, showCommenterName,
                                 <span hidden={showCommenterName ? false : true}> &nbsp;:&nbsp; </span>
                             <p>{comment.comment}</p>
                         </div>
-                        <div className="row mt-5">
+                        <div className="row mt-3">
                             <div className="col-10 px-0">
                                 Commented at {WebUtils.timeTransfer(comment.createTime)}
                             </div>
-                            <div className="col-2 px-0" hidden={adminMode ? false : true}>
+                            <div className="col px-0" hidden={adminMode ? false : true}>
                                 {/* <button type="button" 
                                         className="btn btn-white align-right"
                                         onClick={(event) => deleteComment(loggedInUser, comment)}>
                                         Delete
                                 </button> */}
-                                <i className="fa fa-trash fa-lg"
+                                <i className="fa fa-trash fa-lg text-danger"
                                     style={{cursor: "pointer"}}
                                    onClick={(event) => deleteComment(loggedInUser, comment)}>
                                 </i>
+                            </div>  
+                            <div className="col px-0" 
+                                 hidden={adminMode || loggedInUser.id === comment.userId ? false : true}>                      
+                                <i  className="fa fa-edit fa-lg text-primary"
+                                    style={{cursor: "pointer"}}
+                                    onClick={() => setOpen(!open)}
+                                    aria-controls="comment-edit"
+                                    aria-expanded={open}>
+                                </i>
                             </div>
                         </div>
+
+                        <Collapse in={open}>
+                            <div id="comment-edit"
+                                 className="row mt-2">
+                                <textarea className="form-control"
+                                          rows="3"
+                                          id={comment.id + "_comment_area"}
+                                          defaultValue={comment.comment}>
+                                </textarea>
+                                <Button variant="primary"
+                                        onClick={() => {
+                                            const content = document.getElementById(comment.id + "_comment_area").value;
+                                            console.log("GET THE COMMENT AREA:", content);
+                                            updateComment(loggedInUser, comment, content)
+                                        }}
+                                        className="ml-auto my-1">
+                                    Update
+                                </Button>
+                            </div>
+                        </Collapse>
                     </div>
                 </div>
             </div>

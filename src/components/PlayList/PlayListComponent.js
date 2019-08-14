@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 
 export default class PlayListComponent extends React.Component {
     constructor(props) {
@@ -7,6 +8,10 @@ export default class PlayListComponent extends React.Component {
         const listId = paths[1];
         console.log("Check playlist:", listId);
         this.props.getPlayListById(listId);
+    }
+
+    hasDeleteItemAccess() {
+        return (this.props.loggedIn && this.props.loggedInUser.id === this.props.playlist.userId);
     }
     render() {
         console.log("RENER PLAY LIST COMPONENT : ,", this.props)
@@ -28,11 +33,32 @@ export default class PlayListComponent extends React.Component {
                             </li> */}
                             {this.props.playlist.tracks && this.props.playlist.tracks.map(track => {
                                 return (
-                                    <li className="list-group-item">
-                                        <a href={"/details/track/" + track.id}
-                                            target="_blank">
+                                    <li className="list-group-item align-middle">
+                                        {/* <a href={"/details/track/" + track.id}
+                                            target="_blank"
+                                            className="h-100">
                                             {track.name}
                                         </a>
+                                        <Button variant="warning"
+                                                className="float-right">
+                                            Delete
+                                        </Button> */}
+                                        <div className="row">
+                                            <div className="col my-auto">
+                                                <a href={"/details/track/" + track.id}
+                                                target="_blank">
+                                                    {track.name}
+                                                </a>
+                                            </div>
+                                            <div className="col text-right my-auto"
+                                                hidden={this.hasDeleteItemAccess() ? false : true}
+                                                onClick={() => this.props.DeleteAnItemInPlayList(this.props.playlist, track.id)}>
+                                                <Button variant="warning"
+                                                        className="float-right">
+                                                    Delete
+                                                </Button>
+                                            </div>
+                                        </div>
                                     </li>                               
                                 );
                             })}

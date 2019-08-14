@@ -5,7 +5,8 @@ const HomeReducer = (
         comments: [],
         newPlayList: {
             name: ""
-        }
+        },
+        notifications: []
     }, action
 ) => {
     switch(action.type) {
@@ -17,6 +18,8 @@ const HomeReducer = (
             return {...state};
         case "UPDATE_RECENT_COMMENTS":
             return {...state, comments: action.comments};
+        case "UPDATE_RECENT_NOTIFICATIONS":
+            return {...state, notifications: action.notifications}
         default:
             return {...state};
     }
