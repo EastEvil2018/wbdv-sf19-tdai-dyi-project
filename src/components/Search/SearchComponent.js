@@ -3,10 +3,6 @@ import { SpotifyServiceClient } from '../../services/spotify/SpotifyService';
 import { Button } from 'react-bootstrap';
 import { SpotifyType, SpotifyKey } from '../../models/Search/SearchType';
 import { WebUtils } from '../../utils/WebUtils';
-import Track from './Details/Track';
-import Album from './Details/Album';
-import Artist from './Details/Artist';
-import PlayList from './Details/PlayList';
 import PaginationFooter from './PaginationFooter';
 
 
