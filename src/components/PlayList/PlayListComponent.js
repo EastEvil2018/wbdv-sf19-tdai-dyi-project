@@ -11,16 +11,16 @@ export default class PlayListComponent extends React.Component {
     render() {
         console.log("RENER PLAY LIST COMPONENT : ,", this.props)
         return (
-            <div class="container">
-                <div class="card border-0">
-                    <div class="card-header border-danger text-dark"
+            <div className="container">
+                <div className="card border-0">
+                    <div className="card-header border-danger text-dark"
                         style={{borderWidth: "0.1rem", fontSize: "1.1rem", background:"#f5f5f5"}}>
-                        <i class="fa fa-circle mr-2 text-danger"></i> 
+                        <i className="fa fa-circle mr-2 text-danger"></i> 
                         PlayList&nbsp;:&nbsp;{this.props.playlist.name}
                     </div>
-                    <div class="card-body">
-                        <ul class="list-group">
-                            {/* <li class="list-group-item">
+                    <div className="card-body">
+                        <ul className="list-group">
+                            {/* <li className="list-group-item">
                                 <a href={"/details/track/" + "7JezmrZAhbArL0o9Qwa369"}
                                     target="_blank">
                                     Cras justo odio
@@ -28,7 +28,7 @@ export default class PlayListComponent extends React.Component {
                             </li> */}
                             {this.props.playlist.tracks && this.props.playlist.tracks.map(track => {
                                 return (
-                                    <li class="list-group-item">
+                                    <li className="list-group-item">
                                         <a href={"/details/track/" + track.id}
                                             target="_blank">
                                             {track.name}

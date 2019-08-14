@@ -3,14 +3,14 @@ import React from 'react';
 export const LikeCard = ({like, showProfile}) => {
     console.log("Render LikeCard : ", like);
     return (
-        <div class="col-sm-6
+        <div className="col-sm-6
                     col-md-4 
                     col-lg-4 
                     p-sm-1
                     p-md-2
                     p-lg-5
                     p-0">
-            <div class="card 
+            <div className="card 
                         p-sm-1 
                         p-md-2
                         p-lg-5

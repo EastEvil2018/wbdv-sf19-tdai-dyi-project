@@ -29,7 +29,7 @@ export default class ProfileComponent extends React.Component {
                     if (this.hasFollowed()) {
                         return (
                             <button type="button" 
-                                    class="btn btn-primary"
+                                    className="btn btn-primary"
                                     onClick={() => 
                                         this.props.unfollow(this.props.loggedInUser.id, this.props.user.id)}>
                                 UnFollow
@@ -38,7 +38,7 @@ export default class ProfileComponent extends React.Component {
                     } else {
                         return (
                             <button type="button" 
-                                    class="btn btn-primary"
+                                    className="btn btn-primary"
                                     onClick={() => 
                                         this.props.follow(this.props.loggedInUser.id, this.props.user.id)}>
                                 Follow
@@ -57,43 +57,43 @@ export default class ProfileComponent extends React.Component {
         console.log("ProfileComponent: ", this.props);      
 
         return (
-            <div class="container">
-                <div class="row">
-                    <div class="card mb-3 w-100 border-0">
-                        <div class="card-header border-danger text-dark"
+            <div className="container">
+                <div className="row">
+                    <div className="card mb-3 w-100 border-0">
+                        <div className="card-header border-danger text-dark"
                             style={{borderWidth: "0.1rem", fontSize: "1.1rem", background:"#f5f5f5"}}>
-                            <i class="fa fa-circle mr-2 text-danger"></i> 
+                            <i className="fa fa-circle mr-2 text-danger"></i> 
                             Profile
                         </div>
-                        <div class="row no-gutters">
-                            <div class="col-sm-4 col-md-4 col-lg-2 card border-0 p-3">
+                        <div className="row no-gutters">
+                            <div className="col-sm-4 col-md-4 col-lg-2 card border-0 p-3">
                                 <img className="card-img-top rounded-circle"
                                     src={`${this.props.user.profilePhoto}`/*require('../../images/avatar5.png')*/}/> 
                             </div>
-                            <div class="col-sm-8 col-md-8 col-lg-10 card border-0">
-                                <div class="card-body">
-                                    <h5 class="card-title">{this.props.user.username}</h5> 
-                                    <p class="card-text">{this.props.user.intro}</p>
+                            <div className="col-sm-8 col-md-8 col-lg-10 card border-0">
+                                <div className="card-body">
+                                    <h5 className="card-title">{this.props.user.username}</h5> 
+                                    <p className="card-text">{this.props.user.intro}</p>
                                     {this.renderFollowButton()}
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-2">
-                                                <Link class="card-link" to={"/profile/" + this.props.user.id + "/follows"}>Follows</Link>
+                                    <div className="container">
+                                        <div className="row">
+                                            <div className="col-2">
+                                                <Link className="card-link" to={"/profile/" + this.props.user.id + "/follows"}>Follows</Link>
                                             </div>
-                                            <div class="col-2">
-                                                <Link class="card-link" to={"/profile/" + this.props.user.id + "/followers"}>Followers</Link>
+                                            <div className="col-2">
+                                                <Link className="card-link" to={"/profile/" + this.props.user.id + "/followers"}>Followers</Link>
                                             </div>
-                                            <div class="col-2">
-                                                <Link class="card-link" to={"/profile/" + this.props.user.id + "/likes"}>Likes</Link>
+                                            <div className="col-2">
+                                                <Link className="card-link" to={"/profile/" + this.props.user.id + "/likes"}>Likes</Link>
                                             </div>
-                                            <div class="col-2">
-                                                <Link class="card-link" to={"/profile/" + this.props.user.id + "/comments"}>Comments</Link>
+                                            <div className="col-2">
+                                                <Link className="card-link" to={"/profile/" + this.props.user.id + "/comments"}>Comments</Link>
                                             </div>
-                                            <div class="col-2">
-                                                <Link class="card-link" to={"/profile/" + this.props.user.id + "/playlist"}>PlayList</Link>
+                                            <div className="col-2">
+                                                <Link className="card-link" to={"/profile/" + this.props.user.id + "/playlist"}>PlayList</Link>
                                             </div>
-                                            <div class="col-2" hidden={this.props.loggedIn && this.props.loggedInUser.id === this.props.user.id ? false : true}>
-                                                <Link class="card-link" to={"/profile/" + this.props.user.id + "/settings"}>Settings</Link>
+                                            <div className="col-2" hidden={this.props.loggedIn && this.props.loggedInUser.id === this.props.user.id ? false : true}>
+                                                <Link className="card-link" to={"/profile/" + this.props.user.id + "/settings"}>Settings</Link>
                                             </div>
                                         </div>
                                     </div>

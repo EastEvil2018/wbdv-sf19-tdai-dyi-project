@@ -18,16 +18,16 @@ export default class SearchComponent extends React.Component {
 
     render() {
         return (
-            <div class="container">
-                <div class="row mt-4">
-                    <div class="col-sm-4">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <label class="input-group-text">
+            <div className="container">
+                <div className="row mt-4">
+                    <div className="col-sm-4">
+                        <div className="input-group mb-3">
+                            <div className="input-group-prepend">
+                                <label className="input-group-text">
                                     Type
                                 </label>
                             </div>
-                            <select class="custom-select"
+                            <select className="custom-select"
                                     onChange={(event) => this.props.searchTypeChanged(event.target.value)}>                                
                                 <option selected value={SpotifyType.TRACK}>Track</option>
                                 <option value={SpotifyType.ALBUM}>Album</option>
@@ -35,14 +35,14 @@ export default class SearchComponent extends React.Component {
                             </select>
                         </div>
                     </div>
-                    <div class="col-sm-8">
-                        <div class="input-group mb-3">
+                    <div className="col-sm-8">
+                        <div className="input-group mb-3">
                             <input type="text" 
                                    id="keyword"
-                                   class="form-control"
+                                   className="form-control"
                                    onChange={(event) => this.props.keywordChanged(event.target.value)}/>
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" 
+                            <div className="input-group-append">
+                                <button className="btn btn-outline-secondary" 
                                         type="button"
                                         onClick={(event) => this.props.search(this.props.searchType, this.props.keyword)}>
                                     Search
@@ -52,16 +52,16 @@ export default class SearchComponent extends React.Component {
                     </div>
                 </div>
 
-                <div class="card w-100 h-100 border-0">
-                    <div class="card-header border-danger text-dark"
+                <div className="card w-100 h-100 border-0">
+                    <div className="card-header border-danger text-dark"
                         style={{borderWidth: "0.1rem", fontSize: "1.1rem",background:"#f5f5f5"}}>
-                        <i class="fa fa-circle mr-2 text-danger"></i> 
+                        <i className="fa fa-circle mr-2 text-danger"></i> 
                         Results
                     </div>
-                    <ul class="list-group list-group-flush">
+                    <ul className="list-group list-group-flush">
                         {this.renderResults()}
                     </ul>
-                    {/* <div class="card-body">
+                    {/* <div className="card-body">
                         <PaginationFooter pagination={this.props.pagination}/>
                     </div> */}
                 </div>
@@ -78,7 +78,7 @@ export default class SearchComponent extends React.Component {
 
     renderListItem(item) {
         return (
-            <li class="list-group-item list-group-item-action"
+            <li className="list-group-item list-group-item-action"
                 key={item.id}>
                 <a href={"/details/" + item.type + "/" + item.id}
                    target="_blank">

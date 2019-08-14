@@ -13,19 +13,19 @@ export default class UserStateComponent extends React.Component {
         switch(this.props.loggedIn) {
             case true:
                 return (
-                    <ul class="navbar-nav">
-                        <li class="nav-item" hidden={this.props.loggedInUser.id ? false : true}>
-                            <a class="nav-link text-white"
+                    <ul className="navbar-nav">
+                        <li className="nav-item" hidden={this.props.loggedInUser.id ? false : true}>
+                            <a className="nav-link text-white"
                                style={{fontSize: "1.2rem"}}>Hi, {this.props.loggedInUser.username}</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-primary" 
+                        <li className="nav-item">
+                            <a className="nav-link text-primary" 
                                href={"/profile/" + this.props.loggedInUser.id }
                                style={{fontSize: "1.1rem"}}>My profile</a>
                         </li>              
-                        <li class="nav-item ml-2">
+                        <li className="nav-item ml-2">
                             <button type="button" 
-                                    class="btn btn-outline-primary"
+                                    className="btn btn-outline-primary"
                                     onClick={(event) => this.props.logout()}>
                                 Log Out
                             </button>
@@ -36,13 +36,13 @@ export default class UserStateComponent extends React.Component {
                 console.log("Not Logged In");
                 console.log(this.props);
                 return (
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="btn btn-outline-primary" 
+                    <ul className="navbar-nav">
+                        <li className="nav-item">
+                            <a className="btn btn-outline-primary" 
                                href="/login">Sign In</a>
                         </li>                
-                        <li class="nav-item ml-2">
-                            <a class="btn btn-outline-primary"
+                        <li className="nav-item ml-2">
+                            <a className="btn btn-outline-primary"
                                href="/register">Sign Up</a>
                         </li>
                     </ul> 

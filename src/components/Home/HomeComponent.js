@@ -34,7 +34,7 @@ export default class HomeComponent extends React.Component {
 
     render(){
         return (
-            <div class="container">
+            <div className="container">
                 <HomeCarousel />
                <CommentList title={"Most Recent Comments"}
                             loggedInUser={this.props.loggedInUser}
@@ -53,7 +53,7 @@ const HomeCarousel = ({}) => {
     return (
         <Carousel indicators={false} interval={2000}>
             <Carousel.Item>
-                <div class="row text-center mt-3">
+                <div className="row text-center mt-3">
                     <HomeCarouselItem 
                         imageUrl={"https://i.scdn.co/image/32aa1fd4f61e0e8e089ff2f95632f2463231d5b1"}
                         id={"2QJmrSgbdM35R67eoGQo4j"}
@@ -69,7 +69,7 @@ const HomeCarousel = ({}) => {
                 </div>
             </Carousel.Item>
             <Carousel.Item>
-               <div class="row text-center mt-3">
+               <div className="row text-center mt-3">
                     <HomeCarouselItem 
                             imageUrl={"https://i.scdn.co/image/c932b53e6f13a45f32bc357303c56eb52ecc28fb"}
                             id={"3HNnxK7NgLXbDoxRZxNWiR"}
@@ -90,8 +90,8 @@ const HomeCarousel = ({}) => {
 
 const HomeCarouselItem = ({imageUrl, id, albumName}) => {
     return (
-        <div class="col">
-            <a class="row" 
+        <div className="col">
+            <a className="row" 
             href={"/details/album/" + id}
             target="_blank">
                 <img className="mx-auto img-fluid"

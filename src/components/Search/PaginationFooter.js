@@ -3,7 +3,7 @@ import React from 'react';
 const PaginationFooter = ({pagination}) => {
     console.log(pagination);
     return (
-        <ul class="pagination mx-auto my-auto justify-content-center">
+        <ul className="pagination mx-auto my-auto justify-content-center">
             <PreviousButton curPage={pagination.curPage}/>
             <PaginationItems pagination={pagination} />
             <NextButton curPage={pagination.curPage} pageCount={pagination.pageCount}/>
@@ -16,9 +16,9 @@ const PaginationItems = ({pagination}) => {
 
     for (let i = 1; i <= pagination.pageCount; i++) {
         items.push(
-            <li class={pagination.curPage === i ? "page-item active" : "page-item"}
+            <li className={pagination.curPage === i ? "page-item active" : "page-item"}
                 style={{cursor: "pointer"}}>
-                <span class="page-link">
+                <span className="page-link">
                     {i}
                 </span>
             </li> 
@@ -29,9 +29,9 @@ const PaginationItems = ({pagination}) => {
 
 const PreviousButton = ({curPage}) => {
     return (
-        <li class={"page-item" + (curPage === 1 ? " disabled" : "")}
+        <li className={"page-item" + (curPage === 1 ? " disabled" : "")}
             style={{cursor: "pointer"}}>
-            <span class="page-link">
+            <span className="page-link">
                 Previous
             </span>
         </li>
@@ -40,9 +40,9 @@ const PreviousButton = ({curPage}) => {
 
 const NextButton = ({curPage, pageCount}) => {
     return (
-        <li class={"page-item" + (curPage === pageCount ? " disabled" : "")}
+        <li className={"page-item" + (curPage === pageCount ? " disabled" : "")}
             style={{cursor: "pointer"}}>
-            <span class="page-link" >
+            <span className="page-link" >
                 Next
             </span>
         </li>

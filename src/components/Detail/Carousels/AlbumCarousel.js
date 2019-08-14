@@ -3,14 +3,14 @@ import {Carousel, Dropdown} from 'react-bootstrap';
 
 const AlbumCarousel = ({albums}) => {
     return (
-        <div class="w-100">
+        <div className="w-100">
         <Carousel indicators={false}>
             {albums.map(album => {
                 return (
                     <Carousel.Item>
-                        <div class="row my-3">
+                        <div className="row my-3">
                             <a href={"/details/album/" + album.id}
-                               class="text-center w-100"
+                               className="text-center w-100"
                                target="_blank">
                                 <img className="d-block rounded-circle mx-auto"
                                     src={album.images[0] ? `${album.images[0].url}` : require('../../../images/default-track-profile.png')}
@@ -18,8 +18,8 @@ const AlbumCarousel = ({albums}) => {
                                     style={{width: "6rem", height: "6rem"}}/>
                             </a>
                         </div>
-                        <div class="row my-3">
-                            <a class="text-center w-100" 
+                        <div className="row my-3">
+                            <a className="text-center w-100" 
                                href={"/details/album/" + album.id}
                                target="_blank">
                                 {album.name}

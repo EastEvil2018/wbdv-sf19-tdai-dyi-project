@@ -27,46 +27,46 @@ const ArtistCard = ({artist,
     console.log("Has Likes : ", hasLiked);
 
     return (
-        <div class="container">
-            <div class="card border-0">
-                <div class="card-header border-danger text-dark"
+        <div className="container">
+            <div className="card border-0">
+                <div className="card-header border-danger text-dark"
                         style={{borderWidth: "0.1rem", fontSize: "1.1rem",background:"#f5f5f5"}}>
-                        <i class="fa fa-circle mr-2 text-danger"></i> 
+                        <i className="fa fa-circle mr-2 text-danger"></i> 
                         Artist
                 </div>
-                <div class="card-body container">
-                    <div class="row my-2">
-                        <div class="col-sm-2 text-center my-auto">
+                <div className="card-body container">
+                    <div className="row my-2">
+                        <div className="col-sm-2 text-center my-auto">
                             Name
                         </div>
-                        <div class="col-sm-10 px-0 text-center">
+                        <div className="col-sm-10 px-0 text-center">
                             {artist.name}
                         </div>                                       
                     </div>
-                    <div class="row my-2">
-                        <div class="col-sm-2 text-center my-auto">
+                    <div className="row my-2">
+                        <div className="col-sm-2 text-center my-auto">
                             Profile
                         </div>
-                        <div class="col-sm-10 px-0 text-center">
+                        <div className="col-sm-10 px-0 text-center">
                             <img className="d-block rounded-circle mx-auto"
                                     src={artist.images[0] ? `${artist.images[0].url}` : require('../../../images/default-singer-profile.png')}
                                     alt="First slide"
                                     style={{width: "6rem", height: "6rem"}}/>
                         </div>                                       
                     </div>
-                    <div class="row my-2">
-                        <div class="col-sm-2 text-center my-auto">
+                    <div className="row my-2">
+                        <div className="col-sm-2 text-center my-auto">
                             Ablum
                         </div>
-                        <div class="col-sm-10 px-0 text-center">
+                        <div className="col-sm-10 px-0 text-center">
                             <AlbumCarousel albums={artist.albums.items}/>
                         </div>    
                     </div>
-                    <div class="row my-2">
-                        <div class="col-sm-2 text-center my-auto">
+                    <div className="row my-2">
+                        <div className="col-sm-2 text-center my-auto">
                             Preview
                         </div>
-                        <div class="col-sm-10 px-0 text-center">
+                        <div className="col-sm-10 px-0 text-center">
                             <iframe src={"https://open.spotify.com/embed/artist/" + artist.id}
                                     width="300" 
                                     height="80" 
@@ -77,18 +77,18 @@ const ArtistCard = ({artist,
                         </div>    
                     </div>
                 </div>
-                <div class="card-footer"
+                <div className="card-footer"
                      hidden={loggedIn ? false : true}>
-                    <div class="input-group">
-                        <div class="input-group-append">
+                    <div className="input-group">
+                        <div className="input-group-append">
                             <button type="button" 
-                                    class="btn btn-primary"
+                                    className="btn btn-primary"
                                     hidden={hasLiked ? true : false}
                                     onClick={(event) => postLike(loggedInUser, artist)}>
                                 Like
                             </button>
                             <button type="button" 
-                                    class="btn btn-primary"
+                                    className="btn btn-primary"
                                     hidden={hasLiked ? false : true}
                                     onClick={(event) => postUnlike(loggedInUser, artist)}>
                                 UnLike
@@ -105,21 +105,21 @@ const ArtistCard = ({artist,
                          showProductName={false}
                          adminMode={loggedIn && loggedInUser.role === "ADMIN"}
                          deleteComment={deleteComment} />
-            <div class="card mt-2"
+            <div className="card mt-2"
                  hidden={loggedIn ? false : true}>
-                <div class="card-header">
+                <div className="card-header">
                     Write Comment
                 </div> 
-                <div class="card-body">
-                    <div class="row">
-                        <textarea class="form-control"
+                <div className="card-body">
+                    <div className="row">
+                        <textarea className="form-control"
                                   rows="3"
                                   value={commmentContent}
                                   onChange={(event) => commentContentChanged(event.target.value)}></textarea>
                     </div>
-                    <div class="row mt-2">
+                    <div className="row mt-2">
                         <button type="button" 
-                                class="btn btn-info ml-auto"
+                                className="btn btn-info ml-auto"
                                 onClick={() => postComment(loggedInUser, artist, commmentContent)}>Sumbit</button>
                     </div>
                 </div>
