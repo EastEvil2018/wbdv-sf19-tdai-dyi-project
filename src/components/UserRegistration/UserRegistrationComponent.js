@@ -24,7 +24,7 @@ export default class UserRegistrationComponent extends React.Component {
                         style={{width: "6rem", height: "6rem"}}/>
                 </div>
                 <div className="form-group row">
-                    <label for="username" className="col-sm-2 col-form-label">
+                    <label className="col-sm-2 col-form-label">
                         Username </label>
                     <div className="col-sm-10">
                         <input className="form-control"
@@ -35,8 +35,7 @@ export default class UserRegistrationComponent extends React.Component {
                     </div>
                 </div>
                 <div className="form-group row">
-                    <label for="password" 
-                           className="col-sm-2 col-form-label">
+                    <label className="col-sm-2 col-form-label">
                         Password </label>
                     <div className="col-sm-10">
                         <input type="password" 
@@ -48,8 +47,7 @@ export default class UserRegistrationComponent extends React.Component {
                     </div>
                 </div>
                 <div className="form-group row">
-                    <label for="verify-password" 
-                           className="col-sm-2 col-form-label">
+                    <label className="col-sm-2 col-form-label">
                         Verify Password </label>
                     <div className="col-sm-10">
                         <input type="password" 
@@ -65,8 +63,7 @@ export default class UserRegistrationComponent extends React.Component {
                     </div>
                 </div>
                 <div className="form-group row">
-                    <label for="firstName" 
-                           className="col-sm-2 col-form-label">
+                    <label className="col-sm-2 col-form-label">
                         First Name </label>
                     <div className="col-sm-10">
                         <input className="form-control"
@@ -77,8 +74,7 @@ export default class UserRegistrationComponent extends React.Component {
                     </div>
                 </div>
                 <div className="form-group row">
-                    <label for="lastName" 
-                           className="col-sm-2 col-form-label">
+                    <label className="col-sm-2 col-form-label">
                         Last Name </label>
                     <div className="col-sm-10">
                         <input className="form-control"
@@ -89,8 +85,7 @@ export default class UserRegistrationComponent extends React.Component {
                     </div>
                 </div>
                 <div className="form-group row">
-                    <label for="intro" 
-                           className="col-sm-2 col-form-label">
+                    <label className="col-sm-2 col-form-label">
                         Introduction </label>
                     <div className="col-sm-10">
                         <textarea className="form-control"
@@ -100,8 +95,7 @@ export default class UserRegistrationComponent extends React.Component {
                     </div>
                 </div>
                 <div className="form-group row">
-                    <label for="role" 
-                           className="col-sm-2 col-form-label">
+                    <label className="col-sm-2 col-form-label">
                         Role </label>
                     <div className="col-sm-10">
                         <select className="w-100"
@@ -113,8 +107,7 @@ export default class UserRegistrationComponent extends React.Component {
                     </div>
                 </div>
                 <div className="form-group row">
-                    <label for="profile" 
-                           className="col-sm-2 col-form-label">
+                    <label className="col-sm-2 col-form-label">
                         Profile </label>
                     <div className="col-sm-10">
                         <FileBase64 multiple={ false }
