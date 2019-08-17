@@ -47,7 +47,7 @@ export const CommentList = ({
                         </div>
                     </div>
                 </ol> */}
-                {comments && comments.map(comment => {
+                {comments.length && comments.map(comment => {
                     return (
                         <ol className="px-1 py-2" key={comment.id}>
                             <CommentCard loggedInUser={loggedInUser}
